@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>내 방 — Catch-up!</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--acc:#ff3300;--acc2:#cc1a00;--acc3:#ffb3a0;--ink:#1a1624;--ink2:#4a4460;--ink3:#8a829e;--ink4:#c8c2d8;--ink5:#edeaf4;--warm:#f7f4ee;--card:#fff;--r:12px;--rp:999px}
+body{font-family:'Nunito',sans-serif;background:var(--warm);min-height:100vh}
+.hdr{background:var(--ink);padding:12px 16px;display:flex;align-items:center;gap:12px}
+.hdr-back{color:#fff;font-size:20px;text-decoration:none}
+.hdr-title{font-family:'Caveat',cursive;font-size:22px;font-weight:700;color:#fff;flex:1}
+.hdr-save{padding:7px 18px;background:var(--acc);color:#fff;border:none;border-radius:var(--rp);font-size:13px;font-weight:800;cursor:pointer}
+.wrap{display:flex;flex-direction:column;gap:0}
+.preview{background:#e8eeff;position:sticky;top:0;z-index:10;padding:10px;border-bottom:2px solid var(--ink5)}
+.editor{padding:14px;display:flex;flex-direction:column;gap:10px}
+.sec{background:var(--card);border-radius:var(--r);border:1.5px solid var(--ink5);overflow:hidden}
+.sec-hd{padding:10px 14px;font-size:11px;font-weight:800;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;background:var(--warm);border-bottom:1.5px solid var(--ink5);cursor:pointer;display:flex;justify-content:space-between}
+.sec-body{padding:12px 14px;display:none;flex-direction:column;gap:10px}
+.sec-body.open{display:flex}
+.opt-label{font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.opt-grid{display:flex;gap:5px;flex-wrap:wrap}
+.opt-btn{border:2px solid var(--ink5);border-radius:10px;background:var(--warm);cursor:pointer;padding:5px 10px;font-size:12px;font-weight:700;color:var(--ink2);white-space:nowrap}
+.opt-btn.on{border-color:var(--acc);background:var(--acc3);color:var(--acc2)}
+.color-sq{width:30px;height:30px;border-radius:8px;cursor:pointer;border:3px solid transparent;flex-shrink:0}
+.color-sq.on{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc3)}
+.furn-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.furn-btn{border:2px solid var(--ink5);border-radius:10px;background:var(--warm);cursor:pointer;padding:8px 4px;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:700;color:var(--ink2)}
+.furn-btn:hover{border-color:var(--acc);background:var(--acc3)}
+.furn-btn.placed{border-color:var(--teal,#3dba8c);background:#e0f7ef}
+.placed-list{display:flex;flex-direction:column;gap:4px}
+.placed-item{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--warm);border:1.5px solid var(--ink5);border-radius:8px;font-size:12px}
+.placed-item-del{margin-left:auto;padding:2px 8px;border:1.5px solid var(--ink4);border-radius:var(--rp);background:transparent;font-size:11px;cursor:pointer;color:var(--ink3)}
+.placed-item-del:hover{border-color:#e85d3a;color:#e85d3a}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <a href="index.html" class="hdr-back">←</a>
+  <div class="hdr-title">내 방 꾸미기</div>
+  <button class="hdr-save" onclick="saveAndBack()">저장 →</button>
+</div>
+<div class="wrap">
+  <div class="preview"><canvas id="room-canvas" width="360" height="220" style="width:100%;border-radius:10px;display:block"></canvas></div>
+  <div class="editor" id="editor">
+
+    <div class="sec">
+      <div class="sec-hd" onclick="tog(this)">🎨 벽 & 바닥 ▼</div>
+      <div class="sec-body open">
+        <div><div class="opt-label">벽 색상</div><div class="opt-grid" id="wall-colors"></div></div>
+        <div><div class="opt-label">바닥 색상</div><div class="opt-grid" id="floor-colors"></div></div>
+        <div><div class="opt-label">벽지 패턴</div>
+          <div class="opt-grid" id="wp-btns"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd" onclick="tog(this)">🪟 창문 스타일 ▼</div>
+      <div class="sec-body">
+        <div class="opt-grid" id="win-btns"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd" onclick="tog(this)">💡 조명 스타일 ▼</div>
+      <div class="sec-body">
+        <div class="opt-grid" id="light-btns"></div>
+        <div><div class="opt-label">조명 색</div><div class="opt-grid" id="light-colors"></div></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd" onclick="tog(this)">🛋 가구 추가 ▼</div>
+      <div class="sec-body">
+        <div class="furn-grid" id="furn-grid"></div>
+        <div style="margin-top:6px">
+          <div class="opt-label" style="margin-bottom:6px">배치된 가구</div>
+          <div class="placed-list" id="placed-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd" onclick="tog(this)">🖼 벽 장식 ▼</div>
+      <div class="sec-body">
+        <div class="opt-grid" id="deco-btns"></div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-hd" onclick="tog(this)">🌿 식물 & 소품 ▼</div>
+      <div class="sec-body">
+        <div class="furn-grid" id="plant-grid"></div>
+      </div>
+    </div>
+
+    <div style="height:20px"></div>
+  </div>
+</div>
+
+<script>
+const WALL_COLORS=['#f8e8d4','#fde8e8','#e8f0f8','#e8f8e8','#f0e8f8','#f8f8e0','#ffffff','#2d2a3e','#1a3020','#3a2010'];
+const FLOOR_COLORS=['#e8c89a','#d4b890','#a8c4a0','#b0c0e0','#c8b8a8','#808080','#3a2810','#1a1a2a','#e8e0d0','#c8d8d0'];
+const WALLPAPERS=['없음','도트','줄무늬','체크','별','하트','벽돌','꽃무늬','구름','해'];
+const WINDOWS=['없음','기본창','커튼창','블라인드','아치창','큰창','원형창'];
+const LIGHTS=['없음','천장등','샹들리에','스탠드','벽등','줄전구','네온사인'];
+const LIGHT_COLORS=['#ffffff','#ffe8a0','#ffcc44','#ff9944','#44aaff','#ff44aa','#44ffaa','#aa44ff'];
+const DECOS=['없음','그림액자','거울','시계','선반','화이트보드','포스터','사진벽','트로피'];
+
+const FURNITURE=[
+  {id:'bed-single',e:'🛏',n:'싱글침대'},
+  {id:'bed-double',e:'🛌',n:'더블침대'},
+  {id:'desk',e:'🖥',n:'컴퓨터책상'},
+  {id:'study-desk',e:'📖',n:'공부책상'},
+  {id:'bookshelf',e:'📚',n:'책장'},
+  {id:'wardrobe',e:'🚪',n:'옷장'},
+  {id:'tv',e:'📺',n:'TV'},
+  {id:'tv-stand',e:'📻',n:'TV장'},
+  {id:'couch',e:'🛋',n:'소파'},
+  {id:'armchair',e:'🪑',n:'안락의자'},
+  {id:'table',e:'🍽',n:'식탁'},
+  {id:'coffee-table',e:'☕',n:'커피테이블'},
+  {id:'dresser',e:'🪞',n:'화장대'},
+  {id:'piano',e:'🎹',n:'피아노'},
+  {id:'guitar',e:'🎸',n:'기타'},
+  {id:'gaming',e:'🎮',n:'게이밍셋'},
+  {id:'refrigerator',e:'🧊',n:'냉장고'},
+  {id:'oven',e:'🍳',n:'오븐'},
+  {id:'bathtub',e:'🛁',n:'욕조'},
+  {id:'toilet',e:'🚽',n:'변기'},
+  {id:'rug',e:'🟫',n:'러그'},
+  {id:'curtain',e:'🪟',n:'커튼'},
+  {id:'lamp',e:'🪔',n:'스탠드'},
+  {id:'clock',e:'🕐',n:'벽시계'},
+];
+const PLANTS=[
+  {id:'potted',e:'🪴',n:'화분'},
+  {id:'cactus',e:'🌵',n:'선인장'},
+  {id:'bamboo',e:'🎍',n:'대나무'},
+  {id:'flower',e:'🌸',n:'꽃'},
+  {id:'tree',e:'🌳',n:'나무'},
+  {id:'mushroom',e:'🍄',n:'버섯'},
+  {id:'sunflower',e:'🌻',n:'해바라기'},
+  {id:'cat',e:'🐈',n:'고양이'},
+  {id:'dog',e:'🐕',n:'강아지'},
+  {id:'fish',e:'🐠',n:'어항'},
+  {id:'teddy',e:'🧸',n:'테디베어'},
+  {id:'trophy',e:'🏆',n:'트로피'},
+];
+
+const DEFAULT_ROOM={wall:0,floor:0,wallpaper:'없음',window:'기본창',light:'천장등',lightColor:1,deco:'그림액자',items:[]};
+let room={...DEFAULT_ROOM};
+try{const s=localStorage.getItem('catchup_room2');if(s)room={...DEFAULT_ROOM,...JSON.parse(s)};}catch(e){}
+
+const C=document.getElementById('room-canvas');
+const ctx=C.getContext('2d');
+
+function tog(hd){hd.nextElementSibling.classList.toggle('open');}
+
+function renderColorPalette(id,colors,key){
+  document.getElementById(id).innerHTML=colors.map((c,i)=>
+    `<div class="color-sq${room[key]===i?' on':''}" style="background:${c}" onclick="pickColor('${key}',${i},this,'${id}')"></div>`
+  ).join('');
+}
+function pickColor(key,idx,el,gid){
+  room[key]=idx;
+  document.querySelectorAll(`#${gid} .color-sq`).forEach(d=>d.classList.remove('on'));
+  el.classList.add('on');
+  drawRoom();
+}
+function renderOptBtns(id,opts,key){
+  document.getElementById(id).innerHTML=opts.map(o=>
+    `<button class="opt-btn${room[key]===o?' on':''}" onclick="pickOpt('${key}','${o}',this,'${id}')">${o}</button>`
+  ).join('');
+}
+function pickOpt(key,val,el,gid){
+  room[key]=val;
+  document.querySelectorAll(`#${gid} .opt-btn`).forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  drawRoom();
+}
+
+function addItem(id,e,n){
+  room.items.push({id,e,n});
+  renderPlaced();
+  drawRoom();
+}
+function removeItem(idx){
+  room.items.splice(idx,1);
+  renderPlaced();
+  drawRoom();
+}
+function renderPlaced(){
+  const pl=document.getElementById('placed-list');
+  if(!pl)return;
+  pl.innerHTML=room.items.length===0?'<div style="font-size:12px;color:var(--ink3);padding:4px">배치된 가구가 없어요</div>':
+    room.items.map((it,i)=>`<div class="placed-item"><span>${it.e}</span><span>${it.n}</span><button class="placed-item-del" onclick="removeItem(${i})">제거</button></div>`).join('');
+}
+
+// 방 그리기
+function drawRoom(){
+  const W=360,H=220;
+  ctx.clearRect(0,0,W,H);
+  const wc=WALL_COLORS[room.wall]||'#f8e8d4';
+  const fc=FLOOR_COLORS[room.floor]||'#e8c89a';
+  const wallH=150;
+
+  // 벽
+  ctx.fillStyle=wc;
+  ctx.fillRect(0,0,W,wallH);
+
+  // 벽지 패턴
+  drawWallpaper(room.wallpaper,wc,W,wallH);
+
+  // 바닥
+  ctx.fillStyle=fc;
+  ctx.fillRect(0,wallH,W,H-wallH);
+  // 바닥 원근선
+  ctx.strokeStyle='rgba(0,0,0,.08)';ctx.lineWidth=1;
+  for(let x=0;x<W;x+=36){ctx.beginPath();ctx.moveTo(x,wallH);ctx.lineTo(x+20,H);ctx.stroke();}
+  for(let y=wallH;y<H;y+=14){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  // 바닥선
+  ctx.strokeStyle='rgba(0,0,0,.2)';ctx.lineWidth=2;
+  ctx.beginPath();ctx.moveTo(0,wallH);ctx.lineTo(W,wallH);ctx.stroke();
+
+  // 창문
+  drawWindow(room.window,W,wallH);
+
+  // 조명
+  drawLight(room.light,room.lightColor,W);
+
+  // 벽 장식
+  drawDeco(room.deco,W,wallH);
+
+  // 가구
+  const items=room.items||[];
+  const cols=6,spacing=W/cols;
+  items.forEach((it,i)=>{
+    const col=i%cols, row=Math.floor(i/cols);
+    const x=col*spacing+spacing/2;
+    const y=wallH+10+row*52;
+    ctx.font=`${36}px serif`;
+    ctx.textAlign='center';
+    ctx.fillText(it.e,x,y+36);
+    ctx.font='bold 9px Nunito,sans-serif';
+    ctx.fillStyle='rgba(0,0,0,.5)';
+    ctx.fillText(it.n,x,y+50);
+  });
+
+  // 아바타 (저장된 것 있으면 그려주기)
+  drawAvatarInRoom(W,wallH);
+}
+
+function drawWallpaper(wp,baseColor,W,wallH){
+  if(wp==='없음') return;
+  ctx.save();
+  ctx.globalAlpha=0.18;
+  ctx.fillStyle='#000';
+  if(wp==='도트'){for(let x=15;x<W;x+=20)for(let y=15;y<wallH;y+=20){ctx.beginPath();ctx.arc(x,y,3,0,Math.PI*2);ctx.fill();}}
+  else if(wp==='줄무늬'){ctx.strokeStyle='#000';ctx.lineWidth=2;for(let x=0;x<W;x+=18){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,wallH);ctx.stroke();}}
+  else if(wp==='체크'){ctx.strokeStyle='#000';ctx.lineWidth=1;for(let x=0;x<W;x+=24){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,wallH);ctx.stroke();}for(let y=0;y<wallH;y+=24){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}}
+  else if(wp==='별'){ctx.font='16px serif';for(let x=15;x<W;x+=30)for(let y=15;y<wallH;y+=30)ctx.fillText('⭐',x-8,y+8);}
+  else if(wp==='하트'){ctx.font='16px serif';for(let x=15;x<W;x+=30)for(let y=15;y<wallH;y+=30)ctx.fillText('❤️',x-8,y+8);}
+  else if(wp==='벽돌'){ctx.strokeStyle='rgba(0,0,0,.15)';ctx.lineWidth=1;for(let y=0;y<wallH;y+=18){for(let x=y%36===0?0:-18;x<W;x+=36){ctx.strokeRect(x,y,36,18);}}}
+  else if(wp==='꽃무늬'){ctx.font='18px serif';for(let x=20;x<W;x+=36)for(let y=20;y<wallH;y+=36)ctx.fillText('🌸',x-9,y+9);}
+  else if(wp==='구름'){ctx.font='22px serif';for(let x=20;x<W;x+=50)for(let y=15;y<wallH;y+=40)ctx.fillText('☁️',x-11,y+11);}
+  else if(wp==='해'){ctx.font='22px serif';for(let x=25;x<W;x+=60)for(let y=20;y<wallH;y+=50)ctx.fillText('☀️',x-11,y+11);}
+  ctx.restore();
+}
+
+function drawWindow(style,W,wallH){
+  if(style==='없음') return;
+  const wx=W-110,wy=20,ww=80,wh=70;
+  // 창틀
+  ctx.fillStyle='rgba(255,255,255,.85)';
+  if(style==='원형창'){
+    ctx.beginPath();ctx.arc(wx+ww/2,wy+wh/2,wh/2,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#c8b89a';ctx.lineWidth=4;ctx.stroke();
+  } else if(style==='아치창'){
+    ctx.beginPath();ctx.moveTo(wx,wy+wh);ctx.lineTo(wx,wy+wh/2);ctx.arc(wx+ww/2,wy+wh/2,ww/2,Math.PI,0);ctx.lineTo(wx+ww,wy+wh);ctx.closePath();ctx.fill();
+    ctx.strokeStyle='#c8b89a';ctx.lineWidth=3;ctx.stroke();
+  } else if(style==='큰창'){
+    ctx.beginPath();ctx.roundRect(wx-20,wy,ww+40,wh+20,4);ctx.fill();
+    ctx.strokeStyle='#c8b89a';ctx.lineWidth=3;ctx.stroke();
+  } else {
+    ctx.beginPath();ctx.roundRect(wx,wy,ww,wh,4);ctx.fill();
+    ctx.strokeStyle='#c8b89a';ctx.lineWidth=3;ctx.stroke();
+  }
+  // 창틀 십자
+  if(style!=='원형창'&&style!=='아치창'){
+    ctx.strokeStyle='#c8b89a';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(wx+ww/2,wy);ctx.lineTo(wx+ww/2,wy+wh);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(wx,wy+wh/2);ctx.lineTo(wx+ww,wy+wh/2);ctx.stroke();
+  }
+  // 하늘 & 구름
+  ctx.save();ctx.beginPath();
+  if(style==='원형창') ctx.arc(wx+ww/2,wy+wh/2,wh/2-2,0,Math.PI*2);
+  else ctx.rect(wx+2,wy+2,ww-4,wh-4);
+  ctx.clip();
+  ctx.fillStyle='#87ceeb';ctx.fillRect(wx,wy,ww+40,wh+20);
+  ctx.font='18px serif';ctx.fillText('☁️',wx+5,wy+26);ctx.fillText('☁️',wx+32,wy+18);
+  ctx.restore();
+  // 블라인드
+  if(style==='블라인드'){
+    ctx.fillStyle='rgba(255,230,180,.7)';
+    for(let y2=wy;y2<wy+wh;y2+=8){ctx.fillRect(wx+2,y2,ww-4,5);}
+  }
+  // 커튼
+  if(style==='커튼창'){
+    ctx.fillStyle='rgba(220,80,60,.6)';
+    ctx.beginPath();ctx.moveTo(wx-2,wy-5);ctx.quadraticCurveTo(wx+14,wy+wh/3,wx-2,wy+wh+5);ctx.lineTo(wx+14,wy+wh+5);ctx.lineTo(wx+14,wy-5);ctx.closePath();ctx.fill();
+    ctx.beginPath();ctx.moveTo(wx+ww+2,wy-5);ctx.quadraticCurveTo(wx+ww-14,wy+wh/3,wx+ww+2,wy+wh+5);ctx.lineTo(wx+ww-14,wy+wh+5);ctx.lineTo(wx+ww-14,wy-5);ctx.closePath();ctx.fill();
+  }
+}
+
+function drawLight(style,colorIdx,W){
+  if(style==='없음') return;
+  const lc=LIGHT_COLORS[colorIdx]||'#ffe8a0';
+  const lx=W/2;
+  if(style==='천장등'){
+    ctx.fillStyle='#c8c0b0';ctx.beginPath();ctx.ellipse(lx,8,30,8,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=lc;ctx.beginPath();ctx.ellipse(lx,12,22,6,0,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle=`${lc}44`;ctx.beginPath();ctx.ellipse(lx,50,60,40,0,0,Math.PI*2);ctx.fill();
+  } else if(style==='샹들리에'){
+    ctx.strokeStyle='#aaa';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(lx,0);ctx.lineTo(lx,20);ctx.stroke();
+    ctx.fillStyle='#c8b850';ctx.beginPath();ctx.ellipse(lx,24,28,10,0,0,Math.PI*2);ctx.fill();
+    for(let i=-2;i<=2;i++){ctx.fillStyle=lc;ctx.beginPath();ctx.ellipse(lx+i*14,34,5,8,0,0,Math.PI*2);ctx.fill();}
+  } else if(style==='줄전구'){
+    ctx.strokeStyle='#888';ctx.lineWidth=1;
+    for(let x=20;x<W-20;x+=40){
+      ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x+20,25);ctx.stroke();
+      ctx.fillStyle=lc;ctx.beginPath();ctx.arc(x+20,28,5,0,Math.PI*2);ctx.fill();
+    }
+  } else if(style==='네온사인'){
+    ctx.shadowColor=lc;ctx.shadowBlur=15;
+    ctx.strokeStyle=lc;ctx.lineWidth=3;
+    ctx.beginPath();ctx.roundRect(lx-50,8,100,24,12);ctx.stroke();
+    ctx.font='bold 12px Nunito';ctx.fillStyle=lc;ctx.textAlign='center';ctx.fillText('CATCH-UP!',lx,24);
+    ctx.shadowBlur=0;
+  }
+}
+
+function drawDeco(style,W,wallH){
+  if(style==='없음') return;
+  const dx=30,dy=30;
+  if(style==='그림액자'){
+    ctx.fillStyle='#8B4513';ctx.fillRect(dx-4,dy-4,68,68);
+    ctx.fillStyle='#e8d4b0';ctx.fillRect(dx,dy,60,60);
+    ctx.font='36px serif';ctx.textAlign='center';ctx.fillText('🎨',dx+30,dy+42);
+  } else if(style==='거울'){
+    ctx.fillStyle='#c8b89a';ctx.beginPath();ctx.roundRect(dx,dy,55,80,8);ctx.fill();
+    ctx.fillStyle='rgba(200,220,255,.6)';ctx.beginPath();ctx.roundRect(dx+4,dy+4,47,72,5);ctx.fill();
+  } else if(style==='시계'){
+    ctx.fillStyle='#4a3000';ctx.beginPath();ctx.arc(dx+30,dy+30,32,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#f8f0e0';ctx.beginPath();ctx.arc(dx+30,dy+30,28,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#1a1a1a';ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(dx+30,dy+30);ctx.lineTo(dx+30,dy+10);ctx.stroke();
+    ctx.beginPath();ctx.moveTo(dx+30,dy+30);ctx.lineTo(dx+46,dy+38);ctx.stroke();
+  } else if(style==='포스터'){
+    ctx.fillStyle='#1a1624';ctx.fillRect(dx,dy,60,80);
+    ctx.font='28px serif';ctx.textAlign='center';ctx.fillText('🌶️',dx+30,dy+50);
+    ctx.font='bold 8px Nunito';ctx.fillStyle='#fff';ctx.fillText('CATCH-UP!',dx+30,dy+68);
+  } else if(style==='사진벽'){
+    const frames=[['📷',dx,dy,44,40],['🖼',dx+50,dy-5,36,44],['🌅',dx+5,dy+46,40,36],['🎭',dx+50,dy+44,44,38]];
+    frames.forEach(([e,fx,fy,fw,fh])=>{
+      ctx.fillStyle='#fff';ctx.shadowColor='rgba(0,0,0,.15)';ctx.shadowBlur=4;ctx.fillRect(fx,fy,fw,fh);ctx.shadowBlur=0;
+      ctx.font='20px serif';ctx.textAlign='center';ctx.fillText(e,fx+fw/2,fy+fh/2+7);
+    });
+  } else if(style==='선반'){
+    ctx.fillStyle='#8B4513';ctx.fillRect(dx,dy+40,120,8);
+    ctx.font='20px serif';['📚','🪴','🕐','🏆'].forEach((e2,i)=>{ctx.fillText(e2,dx+i*28+4,dy+36);});
+  } else if(style==='트로피'){
+    ctx.font='36px serif';ctx.textAlign='center';ctx.fillText('🏆',dx+24,dy+40);
+    ctx.font='bold 10px Nunito';ctx.fillStyle='var(--ink3)';ctx.fillText('CHAMPION',dx+24,dy+56);
+  }
+}
+
+function drawAvatarInRoom(W,wallH){
+  // 간단한 아바타 실루엣
+  let av={};
+  try{const s=localStorage.getItem('catchup_avatar2');if(s)av=JSON.parse(s);}catch(e){}
+  const skins=['#FFDBB4','#F5C99A','#EEB98A','#D4956A','#C68642','#A0694A','#8D5524','#6B3D2E'];
+  const hairs=['#1a1a1a','#2c1a0e','#4a3000','#7B3F00','#8B4513','#C0843C','#F4C96E','#FFD700','#ff4444','#ff69b4','#9B59B6','#00BFFF','#1abc9c','#ffffff','#808080'];
+  const clothes=['#e85d3a','#ff8c00','#2ecc71','#3498db','#9b59b6','#1abc9c','#e74c3c','#34495e','#f39c12','#1a1624','#fff','#ecf0f1','#27ae60','#8e44ad','#d35400','#c0392b'];
+  const sk=skins[av.skin||0];
+  const hr=hairs[av.hairColor||0];
+  const tc=clothes[av.topColor||0];
+  const bc=clothes[av.bottomColor||9];
+  const ax=W/2, ay=wallH-10;
+  // 다리
+  ctx.fillStyle=bc;ctx.beginPath();ctx.roundRect(ax-12,ay-50,10,30,4);ctx.fill();
+  ctx.beginPath();ctx.roundRect(ax+2,ay-50,10,30,4);ctx.fill();
+  // 몸
+  ctx.fillStyle=tc;ctx.beginPath();ctx.roundRect(ax-16,ay-80,32,34,6);ctx.fill();
+  // 팔
+  ctx.beginPath();ctx.roundRect(ax-24,ay-78,10,26,4);ctx.fill();
+  ctx.beginPath();ctx.roundRect(ax+14,ay-78,10,26,4);ctx.fill();
+  // 목
+  ctx.fillStyle=sk;ctx.beginPath();ctx.roundRect(ax-6,ay-88,12,12,3);ctx.fill();
+  // 머리카락
+  ctx.fillStyle=hr;ctx.beginPath();ctx.ellipse(ax,ay-104,16,18,0,0,Math.PI*2);ctx.fill();
+  // 얼굴
+  ctx.fillStyle=sk;ctx.beginPath();ctx.ellipse(ax,ay-100,14,17,0,0,Math.PI*2);ctx.fill();
+  // 눈
+  ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.arc(ax-5,ay-102,2,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(ax+5,ay-102,2,0,Math.PI*2);ctx.fill();
+  // 입
+  ctx.strokeStyle='#c06060';ctx.lineWidth=1.5;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(ax-4,ay-95);ctx.quadraticCurveTo(ax,ay-91,ax+4,ay-95);ctx.stroke();
+  // 신발
+  ctx.fillStyle='#1a1a1a';ctx.beginPath();ctx.ellipse(ax-7,ay-20,8,4,0,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.ellipse(ax+7,ay-20,8,4,0,0,Math.PI*2);ctx.fill();
+}
+
+function initUI(){
+  renderColorPalette('wall-colors',WALL_COLORS,'wall');
+  renderColorPalette('floor-colors',FLOOR_COLORS,'floor');
+  renderOptBtns('wp-btns',WALLPAPERS,'wallpaper');
+  renderOptBtns('win-btns',WINDOWS,'window');
+  renderOptBtns('light-btns',LIGHTS,'light');
+  renderColorPalette('light-colors',LIGHT_COLORS,'lightColor');
+  renderOptBtns('deco-btns',DECOS,'deco');
+
+  document.getElementById('furn-grid').innerHTML=FURNITURE.map(f=>
+    `<button class="furn-btn" onclick="addItem('${f.id}','${f.e}','${f.n}')"><span style="font-size:24px">${f.e}</span><span>${f.n}</span></button>`
+  ).join('');
+  document.getElementById('plant-grid').innerHTML=PLANTS.map(f=>
+    `<button class="furn-btn" onclick="addItem('${f.id}','${f.e}','${f.n}')"><span style="font-size:24px">${f.e}</span><span>${f.n}</span></button>`
+  ).join('');
+  renderPlaced();
+}
+
+function saveAndBack(){
+  try{localStorage.setItem('catchup_room2',JSON.stringify(room));}catch(e){}
+  window.location.href='index.html';
+}
+
+initUI();
+drawRoom();
+</script>
+</body>
+</html>
