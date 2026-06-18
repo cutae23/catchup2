@@ -215,27 +215,28 @@ header::before{
 .photo-section{background:var(--warm);border:1.5px solid var(--ink5);border-radius:14px;padding:12px}
 .section-title{font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
 
-/* 사진 그리드 — 첫장 크게, 나머지 3열 */
-.photo-grid{display:grid;gap:8px}
-.photo-grid.empty-grid{grid-template-columns:1fr}
-.photo-grid.one{grid-template-columns:1fr}
-.photo-grid.multi{grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto}
-.photo-grid.multi .dp:first-child{grid-column:1/-1;height:200px}
-.dp{position:relative;border-radius:10px;overflow:hidden;background:var(--ink5);cursor:pointer;height:120px}
-.dp img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
-.dp:hover img{transform:scale(1.05)}
+/* 사진 그리드 — 사진 + 캡션이 세로로 쌓이는 카드 형태 */
+.photo-grid{display:grid;gap:14px}
+.photo-grid.empty-grid{display:none}
+.dp{display:flex;flex-direction:column;gap:6px}
+.dp-imgwrap{position:relative;border-radius:10px;overflow:hidden;background:var(--ink5);cursor:pointer;height:180px}
+.dp-imgwrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+.dp-imgwrap:hover img{transform:scale(1.04)}
+.dp-cap{width:100%;min-height:44px;border:1.5px solid var(--ink4);border-radius:10px;padding:8px 10px;font-family:'Noto Sans KR',sans-serif;font-size:12.5px;font-weight:400;color:var(--ink);background:var(--card);resize:vertical;outline:none;line-height:1.6}
+.dp-cap:focus{border-color:var(--acc)}
+.dp-cap::placeholder{color:var(--ink3)}
 .dp-del{position:absolute;top:5px;right:5px;width:22px;height:22px;border-radius:50%;background:rgba(26,22,36,.7);border:none;color:#fff;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;z-index:2}
 .dp-dl{position:absolute;bottom:5px;right:5px;width:22px;height:22px;border-radius:50%;background:rgba(26,22,36,.7);border:none;color:#fff;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .15s;z-index:2}
-.dp:hover .dp-del,.dp:hover .dp-dl{opacity:1}
-.dp-add{border:2px dashed var(--ink4);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all .15s;border-radius:10px;height:120px}
+.dp-imgwrap:hover .dp-del,.dp-imgwrap:hover .dp-dl{opacity:1}
+.dp-add{border:2px dashed var(--ink4);background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;transition:all .15s;border-radius:10px;height:64px;margin-top:12px}
 .dp-add:hover{border-color:var(--acc);background:var(--acc3)}
-.dp-add-icon{font-size:22px;color:var(--ink3)}
+.dp-add-icon{font-size:20px;color:var(--ink3)}
 .dp-add-lbl{font-size:10px;font-weight:700;color:var(--ink3)}
 .dp-add:hover .dp-add-icon,.dp-add:hover .dp-add-lbl{color:var(--acc)}
 
 /* 일기 섹션 */
 .diary-section{background:var(--warm);border:1.5px solid var(--ink5);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
-.diary-textarea{width:100%;min-height:140px;border:1.5px solid var(--ink4);border-radius:10px;padding:10px 12px;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:400;color:var(--ink);background:var(--card);resize:vertical;outline:none;line-height:1.8}
+.diary-textarea{width:100%;min-height:140px;border:1.5px solid var(--ink4);border-radius:10px;padding:10px 12px;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:400;color:var(--ink);background:var(--card);resize:vertical;outline:none;line-height:1.8;overflow-y:hidden}
 .diary-textarea:focus{border-color:var(--acc)}
 .diary-footer{display:flex;align-items:center;justify-content:flex-end;gap:8px}
 .diary-toast{font-size:11px;font-weight:700;color:#3dba8c;opacity:0;transition:opacity .3s}
@@ -269,6 +270,15 @@ header::before{
 .mftr{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .btn-c{padding:8px 16px;border:1.5px solid var(--ink5);border-radius:var(--rp);background:transparent;font-size:13px;font-weight:700;color:var(--ink3);cursor:pointer}
 .btn-s{padding:8px 20px;border:none;border-radius:var(--rp);background:var(--acc);color:#fff;font-size:13px;font-weight:700;cursor:pointer}
+.period-hint{font-size:10px;color:var(--ink3);margin-top:4px}
+.chkrow{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--ink2);cursor:pointer;padding:8px 0 0}
+.chkrow input{width:auto;accent-color:var(--acc)}
+.alarm-status{font-size:10px;font-weight:600;margin-top:4px;line-height:1.4}
+.alarm-status.ok{color:#1a7a50}
+.alarm-status.warn{color:#c03010}
+.alarm-status.info{color:var(--ink3)}
+.tc-period{font-size:11px;font-weight:600;color:var(--ink3)}
+.tc-alarm{font-size:11px}
 
 /* 기분별 테마 전환 */
 body,header,.left,.right,.wx-panel{transition:background .5s,border-color .4s}
@@ -279,51 +289,6 @@ body,header,.left,.right,.wx-panel{transition:background .5s,border-color .4s}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 @keyframes droop{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(4px) rotate(-4deg)}}
 @keyframes float{0%,100%{transform:translateY(0)}40%{transform:translateY(-3px)}70%{transform:translateY(2px)}}
-
-/* ── 프로필 ── */
-.profile-wrap{padding:16px;display:flex;flex-direction:column;gap:14px;overflow-y:auto;flex:1}
-.profile-card{background:var(--warm);border:1.5px solid var(--ink5);border-radius:16px;padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
-.profile-avatar{width:90px;height:90px;border-radius:50%;background:var(--acc3);border:3px solid var(--acc);overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative}
-.profile-avatar img{width:100%;height:100%;object-fit:cover}
-.profile-avatar-placeholder{font-size:40px}
-.profile-avatar-edit{position:absolute;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;border-radius:50%}
-.profile-avatar:hover .profile-avatar-edit{opacity:1}
-.profile-avatar-edit span{font-size:22px}
-.profile-name{font-size:20px;font-weight:900;color:var(--ink);text-align:center}
-.profile-bio{font-size:13px;color:var(--ink3);text-align:center;line-height:1.5}
-.profile-edit-btn{padding:7px 20px;background:var(--acc);color:#fff;border:none;border-radius:var(--rp);font-size:13px;font-weight:700;cursor:pointer}
-.profile-stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.profile-stat{background:var(--warm);border:1.5px solid var(--ink5);border-radius:12px;padding:12px 8px;text-align:center}
-.profile-stat-n{font-size:22px;font-weight:900;color:var(--acc)}
-.profile-stat-l{font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
-.profile-edit-form{background:var(--warm);border:1.5px solid var(--ink5);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
-.profile-edit-form label{font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px;display:block}
-.profile-edit-form input,.profile-edit-form textarea{width:100%;font-family:'Noto Sans KR',sans-serif;font-size:14px;border:1.5px solid var(--ink4);border-radius:10px;padding:8px 12px;background:var(--card);color:var(--ink);outline:none}
-.profile-edit-form input:focus,.profile-edit-form textarea:focus{border-color:var(--acc)}
-.profile-edit-form textarea{resize:none;height:60px}
-.profile-form-btns{display:flex;gap:8px;justify-content:flex-end}
-
-/* ── 날씨 채팅 ── */
-.wchat-wrap{display:flex;flex-direction:column;flex:1;overflow:hidden}
-.wchat-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
-.wchat-messages::-webkit-scrollbar{width:3px}
-.wchat-messages::-webkit-scrollbar-thumb{background:var(--ink5);border-radius:2px}
-.wmsg{display:flex;gap:8px;align-items:flex-end}
-.wmsg.user{flex-direction:row-reverse}
-.wmsg-bubble{max-width:78%;padding:10px 14px;border-radius:18px;font-size:13px;font-weight:500;line-height:1.6;word-break:break-word}
-.wmsg.ai .wmsg-bubble{background:var(--warm);border:1.5px solid var(--ink5);color:var(--ink);border-bottom-left-radius:4px}
-.wmsg.user .wmsg-bubble{background:var(--acc);color:#fff;border-bottom-right-radius:4px}
-.wmsg-avatar{width:32px;height:32px;border-radius:50%;background:var(--acc3);border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.wchat-input-row{padding:10px 12px;border-top:1.5px solid var(--ink5);display:flex;gap:8px;background:var(--card)}
-.wchat-input{flex:1;font-family:'Noto Sans KR',sans-serif;font-size:13px;border:1.5px solid var(--ink4);border-radius:var(--rp);padding:8px 14px;background:var(--warm);color:var(--ink);outline:none;resize:none}
-.wchat-input:focus{border-color:var(--acc)}
-.wchat-send{padding:8px 16px;background:var(--acc);color:#fff;border:none;border-radius:var(--rp);font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0}
-.wchat-send:disabled{opacity:.5;cursor:not-allowed}
-.wchat-weather-bar{background:var(--acc3);border-bottom:1.5px solid var(--ink5);padding:8px 14px;font-size:11px;font-weight:700;color:var(--acc2);display:flex;align-items:center;gap:6px}
-.typing-dot{display:inline-flex;gap:3px;align-items:center}
-.typing-dot span{width:6px;height:6px;border-radius:50%;background:var(--ink3);animation:bounce .8s ease-in-out infinite}
-.typing-dot span:nth-child(2){animation-delay:.15s}
-.typing-dot span:nth-child(3){animation-delay:.3s}
 </style>
 
 <div class="shell">
@@ -340,17 +305,13 @@ body,header,.left,.right,.wx-panel{transition:background .5s,border-color .4s}
           <div class="wx-desc" id="wx-badge-desc">날씨 로딩 중</div>
         </div>
       </div>
-      <!-- 현재 기분 표시 -->
+      <!-- 현재 기분 표시 (읽기 전용 — 선택은 왼쪽 패널에서) -->
       <div class="mood-badge" id="mood-badge-display">
         <div id="mood-badge-svg"></div>
         <div class="mood-badge-info">
           <span class="mood-badge-label">오늘 기분</span>
           <span class="mood-badge-name" id="mood-badge-name">선택해줘 ↙</span>
         </div>
-      </div>
-      <!-- 프로필 버튼 -->
-      <div id="profile-header-btn" onclick="rtab='profile';renderR()" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;flex-shrink:0">
-        <div id="profile-header-img" style="font-size:20px">👤</div>
       </div>
     </div>
   </header>
@@ -396,347 +357,101 @@ const MOODS=[
 ];
 const REPS=['없음','매일','매주','매월'];
 const DEFAULT_TODOS=[
-  {id:1,title:'팀 주간 보고서',cat:0,pri:'high',time:'09:00',date:todayStr,done:false,rep:'매주',note:''},
-  {id:2,title:'헬스장 1시간',cat:2,pri:'mid',time:'07:00',date:todayStr,done:true,rep:'매일',note:''},
-  {id:3,title:'알고리즘 강의 1강',cat:1,pri:'mid',time:'20:00',date:todayStr,done:false,rep:'없음',note:''},
-  {id:4,title:'독서 30분',cat:4,pri:'low',time:'22:00',date:todayStr,done:false,rep:'매일',note:''},
+  {id:1,title:'팀 주간 보고서',cat:0,pri:'high',time:'09:00',date:todayStr,dateEnd:todayStr,done:false,rep:'매주',note:'',alarm:true},
+  {id:2,title:'헬스장 1시간',cat:2,pri:'mid',time:'07:00',date:todayStr,dateEnd:todayStr,done:true,rep:'매일',note:'',alarm:false},
+  {id:3,title:'알고리즘 강의 1강',cat:1,pri:'mid',time:'20:00',date:todayStr,dateEnd:todayStr,done:false,rep:'없음',note:'',alarm:false},
+  {id:4,title:'독서 30분',cat:4,pri:'low',time:'22:00',date:todayStr,dateEnd:todayStr,done:false,rep:'매일',note:'',alarm:false},
 ];
+/* ── 안전한 저장소: localStorage 접근이 막힌 환경(예: 미리보기 iframe)에서도
+   스크립트가 멈추지 않도록 메모리 폴백을 제공 ── */
+const _memStore={};
+const safeStorage=(()=>{
+  let usable=false;
+  try{
+    const k='__nyanodo_test__';
+    window.localStorage.setItem(k,'1');
+    window.localStorage.removeItem(k);
+    usable=true;
+  }catch(e){usable=false;}
+  return{
+    getItem(key){
+      if(usable){try{return window.localStorage.getItem(key);}catch(e){return _memStore[key]!==undefined?_memStore[key]:null;}}
+      return _memStore[key]!==undefined?_memStore[key]:null;
+    },
+    setItem(key,val){
+      _memStore[key]=val;
+      if(usable){try{window.localStorage.setItem(key,val);}catch(e){}}
+    }
+  };
+})();
+
 let todos,moods,nextId,diaries,photos;
-try{const s=localStorage.getItem('nyanodo_todos');todos=s?JSON.parse(s):DEFAULT_TODOS;}catch(e){todos=DEFAULT_TODOS;}
-try{const s=localStorage.getItem('nyanodo_moods');moods=s?JSON.parse(s):{};}catch(e){moods={};}
-try{const s=localStorage.getItem('nyanodo_nextId');nextId=s?parseInt(s,10):20;}catch(e){nextId=20;}
-try{const s=localStorage.getItem('nyanodo_diaries');diaries=s?JSON.parse(s):{};}catch(e){diaries={};}
-try{const s=localStorage.getItem('nyanodo_photos');photos=s?JSON.parse(s):{};}catch(e){photos={};}
+{const s=safeStorage.getItem('nyanodo_todos');todos=s?JSON.parse(s):DEFAULT_TODOS;}
+{const s=safeStorage.getItem('nyanodo_moods');moods=s?JSON.parse(s):{};}
+{const s=safeStorage.getItem('nyanodo_nextId');nextId=s?parseInt(s,10):20;}
+{const s=safeStorage.getItem('nyanodo_diaries');diaries=s?JSON.parse(s):{};}
+{const s=safeStorage.getItem('nyanodo_photos');photos=s?JSON.parse(s):{};}
 if(todos.length>0){const m=Math.max(...todos.map(t=>t.id));if(nextId<=m)nextId=m+1;}
 
-/* ── 프로필 ── */
-let profile={name:'나',bio:'한마디를 입력해줘 ✨',avatar:''};
-try{const s=localStorage.getItem('catchup_profile');if(s)profile=JSON.parse(s);}catch(e){}
-let profileEditing=false;
-
-function saveProfile(){
-  try{localStorage.setItem('catchup_profile',JSON.stringify(profile));}catch(e){}
-  // 헤더 아바타 업데이트
-  const el=document.getElementById('profile-header-img');
-  if(el) el.innerHTML=profile.avatar?`<img src="${profile.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:'👤';
-}
-saveProfile(); // 초기 헤더 반영
-
-function buildProfile(){
-  const totalTodos=todos.length;
-  const doneTodos=todos.filter(t=>t.done).length;
-  const moodCount=Object.keys(moods).length;
-  const diaryCount=Object.keys(diaries).length;
-  if(profileEditing){
-    return`<div class="profile-wrap">
-      <div class="profile-edit-form">
-        <div><label>이름</label><input id="pname" value="${profile.name}" placeholder="이름"/></div>
-        <div><label>한마디</label><textarea id="pbio" placeholder="오늘의 한마디...">${profile.bio}</textarea></div>
-        <div><label>프로필 사진</label>
-          <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
-            <div style="width:60px;height:60px;border-radius:50%;overflow:hidden;border:2px solid var(--acc);flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--acc3)">
-              ${profile.avatar?`<img id="pavatar-preview" src="${profile.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:`<span id="pavatar-preview" style="font-size:28px">👤</span>`}
-            </div>
-            <button id="pavatar-btn" style="padding:7px 14px;background:var(--warm);border:1.5px solid var(--ink4);border-radius:var(--rp);font-size:12px;font-weight:700;cursor:pointer;color:var(--ink2)">📷 사진 변경</button>
-            <input type="file" id="pavatar-input" accept="image/*" style="display:none">
-          </div>
-        </div>
-        <div class="profile-form-btns">
-          <button class="btn-c" onclick="profileEditing=false;renderR()">취소</button>
-          <button class="btn-s" onclick="saveProfileEdit()">저장</button>
-        </div>
-      </div>
-    </div>`;
-  }
-  return`<div class="profile-wrap">
-    <div class="profile-card">
-      <div class="profile-avatar" onclick="profileEditing=true;renderR()">
-        ${profile.avatar?`<img src="${profile.avatar}">`:`<div class="profile-avatar-placeholder">👤</div>`}
-        <div class="profile-avatar-edit"><span>✎</span></div>
-      </div>
-      <div class="profile-name">${profile.name}</div>
-      <div class="profile-bio">${profile.bio}</div>
-      <button class="profile-edit-btn" onclick="profileEditing=true;renderR()">프로필 수정</button>
-    </div>
-    <div class="profile-stats-row">
-      <div class="profile-stat"><div class="profile-stat-n">${totalTodos}</div><div class="profile-stat-l">할 일</div></div>
-      <div class="profile-stat"><div class="profile-stat-n">${doneTodos}</div><div class="profile-stat-l">완료</div></div>
-      <div class="profile-stat"><div class="profile-stat-n">${moodCount}</div><div class="profile-stat-l">기분기록</div></div>
-    </div>
-    <div class="profile-stats-row">
-      <div class="profile-stat"><div class="profile-stat-n">${diaryCount}</div><div class="profile-stat-l">일기</div></div>
-      <div class="profile-stat"><div class="profile-stat-n">${Object.values(moods).filter(v=>v<=2).length}</div><div class="profile-stat-l">행복한 날</div></div>
-      <div class="profile-stat"><div class="profile-stat-n">${totalTodos?Math.round(doneTodos/totalTodos*100):0}%</div><div class="profile-stat-l">달성률</div></div>
-    </div>
-  </div>`;
-}
-function bindProfile(){
-  // 사진 버튼 — onclick 대신 addEventListener로 확실하게
-  const btn=document.getElementById('pavatar-btn');
-  const inp=document.getElementById('pavatar-input');
-  if(btn&&inp){
-    btn.addEventListener('click',()=>inp.click());
-    inp.addEventListener('change',async e=>{
-      const file=e.target.files[0];if(!file)return;
-      const fr=new FileReader();
-      const raw=await new Promise(r=>{fr.onload=ev=>r(ev.target.result);fr.readAsDataURL(file);});
-      profile.avatar=await compressImage(raw,300,300,0.85);
-      const prev=document.getElementById('pavatar-preview');
-      if(prev) prev.outerHTML=`<img id="pavatar-preview" src="${profile.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-    });
-  }
-}
-function saveProfileEdit(){
-  profile.name=document.getElementById('pname').value.trim()||'나';
-  profile.bio=document.getElementById('pbio').value.trim()||'한마디를 입력해줘 ✨';
-  saveProfile();
-  profileEditing=false;
-  renderR();
-}
-
-/* ══════════════════════════════════════
-   내 방 (미니룸)
-══════════════════════════════════════ */
-const ROOM_WALLS=['#f8e8d4','#d4e8f8','#d4f8e8','#f8d4e8','#e8d4f8','#f8f8d4','#2d2a3e','#1a3a2a'];
-const ROOM_FLOORS=['#e8c89a','#a8c4a0','#b0b8e0','#e8b0b0','#d4c8a8','#c8d4d8','#4a3828','#2a2a3a'];
-const ROOM_WALLPAPER=['none','dots','stripes','stars','hearts','bricks'];
-
-const AVATAR_SKINS=['#FFDBB4','#EEB98A','#C68642','#8D5524','#F8D5C2','#FFE0BD'];
-const AVATAR_HAIR=['#1a1a1a','#4a3000','#8B4513','#FFD700','#FF4444','#9B59B6','#00BFFF','#FF69B4'];
-const AVATAR_EYES=['#1a1a1a','#3d2b1f','#1a5276','#1e8449','#7d3c98'];
-const AVATAR_MOUTH=['smile','grin','neutral','pout','tongue'];
-const AVATAR_OUTFIT=['#e85d3a','#3498db','#2ecc71','#9b59b6','#f39c12','#1abc9c','#e74c3c','#34495e'];
-
-let room={wall:0,floor:0,wallpaper:'none',items:[]};
-let avatar={skin:0,hair:0,eyes:0,mouth:'smile',outfit:0,name:profile.name};
-let roomTab='room'; // 'room' | 'avatar'
-
-try{const s=localStorage.getItem('catchup_room');if(s)room=JSON.parse(s);}catch(e){}
-try{const s=localStorage.getItem('catchup_avatar');if(s)avatar=JSON.parse(s);}catch(e){}
-
-const FURNITURE=[
-  {id:'bed',emoji:'🛏',name:'침대',x:10,y:30,w:120,h:70},
-  {id:'desk',emoji:'🖥',name:'책상',x:200,y:20,w:100,h:60},
-  {id:'plant',emoji:'🪴',name:'화분',x:280,y:60,w:50,h:60},
-  {id:'cat',emoji:'🐈',name:'고양이',x:160,y:100,w:50,h:40},
-  {id:'lamp',emoji:'🪔',name:'조명',x:240,y:10,w:40,h:70},
-  {id:'bookshelf',emoji:'📚',name:'책장',x:5,y:5,w:70,h:90},
-  {id:'tv',emoji:'📺',name:'TV',x:130,y:5,w:80,h:55},
-  {id:'rug',emoji:'🟫',name:'러그',x:100,y:110,w:130,h:50},
-  {id:'mirror',emoji:'🪞',name:'거울',x:300,y:30,w:40,h:80},
-  {id:'couch',emoji:'🛋',name:'소파',x:60,y:100,w:110,h:55},
-];
-
-function saveRoom(){try{localStorage.setItem('catchup_room',JSON.stringify(room));localStorage.setItem('catchup_avatar',JSON.stringify(avatar));}catch(e){}}
-
-function drawAvatar3D(av,size){
-  const sk=AVATAR_SKINS[av.skin]||AVATAR_SKINS[0];
-  const hr=AVATAR_HAIR[av.hair]||'#1a1a1a';
-  const ey=AVATAR_EYES[av.eyes]||'#1a1a1a';
-  const ot=AVATAR_OUTFIT[av.outfit]||'#e85d3a';
-  const s=size||120;
-
-  // 입 모양
-  const mouths={
-    smile:`<path d="M43 72 Q55 82 67 72" stroke="${ey}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`,
-    grin:`<path d="M40 72 Q55 86 70 72" stroke="${ey}" stroke-width="2.5" fill="none" stroke-linecap="round"/><path d="M42 72 Q55 84 68 72" fill="${sk}" stroke="none"/>`,
-    neutral:`<line x1="44" y1="75" x2="66" y2="75" stroke="${ey}" stroke-width="2.5" stroke-linecap="round"/>`,
-    pout:`<path d="M43 76 Q55 70 67 76" stroke="${ey}" stroke-width="2.5" fill="none" stroke-linecap="round"/>`,
-    tongue:`<path d="M43 72 Q55 82 67 72" stroke="${ey}" stroke-width="2" fill="none" stroke-linecap="round"/><ellipse cx="55" cy="80" rx="7" ry="5" fill="#ff8080"/>`,
-  };
-
-  return`<svg viewBox="0 0 110 160" xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s*1.45}">
-    <!-- 그림자 -->
-    <ellipse cx="55" cy="155" rx="30" ry="6" fill="rgba(0,0,0,.12)"/>
-    <!-- 몸 (옷) -->
-    <rect x="28" y="105" width="54" height="52" rx="12" fill="${ot}"/>
-    <!-- 목 -->
-    <rect x="46" y="98" width="18" height="14" rx="4" fill="${sk}"/>
-    <!-- 옷 디테일 -->
-    <rect x="42" y="108" width="26" height="3" rx="1.5" fill="rgba(255,255,255,.3)"/>
-    <circle cx="55" cy="117" r="2" fill="rgba(255,255,255,.4)"/>
-    <circle cx="55" cy="124" r="2" fill="rgba(255,255,255,.4)"/>
-    <!-- 팔 -->
-    <rect x="10" y="105" width="20" height="38" rx="9" fill="${ot}"/>
-    <ellipse cx="20" cy="143" rx="9" ry="8" fill="${sk}"/>
-    <rect x="80" y="105" width="20" height="38" rx="9" fill="${ot}"/>
-    <ellipse cx="90" cy="143" rx="9" ry="8" fill="${sk}"/>
-    <!-- 다리 -->
-    <rect x="34" y="150" width="17" height="8" rx="4" fill="${ot}" opacity=".8"/>
-    <rect x="59" y="150" width="17" height="8" rx="4" fill="${ot}" opacity=".8"/>
-    <!-- 머리 -->
-    <ellipse cx="55" cy="58" rx="36" ry="38" fill="${sk}"/>
-    <!-- 귀 -->
-    <ellipse cx="19" cy="60" rx="8" ry="10" fill="${sk}"/>
-    <ellipse cx="19" cy="60" rx="4" ry="6" fill="${sk}" opacity=".6"/>
-    <ellipse cx="91" cy="60" rx="8" ry="10" fill="${sk}"/>
-    <ellipse cx="91" cy="60" rx="4" ry="6" fill="${sk}" opacity=".6"/>
-    <!-- 머리카락 -->
-    <ellipse cx="55" cy="24" rx="36" ry="18" fill="${hr}"/>
-    <rect x="19" y="18" width="72" height="20" fill="${hr}"/>
-    <ellipse cx="30" cy="32" rx="12" ry="14" fill="${hr}"/>
-    <ellipse cx="80" cy="32" rx="12" ry="14" fill="${hr}"/>
-    <!-- 얼굴 -->
-    <!-- 눈썹 -->
-    <path d="M36 48 Q43 44 50 47" stroke="${hr}" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <path d="M60 47 Q67 44 74 48" stroke="${hr}" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <!-- 눈 흰자 -->
-    <ellipse cx="42" cy="57" rx="9" ry="9" fill="white"/>
-    <ellipse cx="68" cy="57" rx="9" ry="9" fill="white"/>
-    <!-- 눈동자 -->
-    <ellipse cx="44" cy="58" rx="5.5" ry="6" fill="${ey}"/>
-    <ellipse cx="70" cy="58" rx="5.5" ry="6" fill="${ey}"/>
-    <!-- 눈 하이라이트 -->
-    <circle cx="46" cy="55" r="2" fill="white"/>
-    <circle cx="72" cy="55" r="2" fill="white"/>
-    <!-- 코 -->
-    <ellipse cx="55" cy="67" rx="3" ry="2" fill="${sk}" opacity=".5"/>
-    <path d="M52 67 Q55 70 58 67" stroke="${sk}" stroke-width="1.5" fill="none" opacity=".6"/>
-    <!-- 볼터치 -->
-    <ellipse cx="32" cy="68" rx="9" ry="6" fill="${ot}" opacity=".2"/>
-    <ellipse cx="78" cy="68" rx="9" ry="6" fill="${ot}" opacity=".2"/>
-    <!-- 입 -->
-    ${mouths[av.mouth]||mouths.smile}
-  </svg>`;
-}
-
-function drawWallpaper(wp,wallColor){
-  if(wp==='none') return '';
-  const patterns={
-    dots:`<pattern id="wp" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="2" fill="rgba(0,0,0,.08)"/></pattern>`,
-    stripes:`<pattern id="wp" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><line x1="0" y1="0" x2="20" y2="20" stroke="rgba(0,0,0,.08)" stroke-width="2"/></pattern>`,
-    stars:`<pattern id="wp" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><text x="10" y="20" font-size="14" opacity=".15">⭐</text></pattern>`,
-    hearts:`<pattern id="wp" x="0" y="0" width="30" height="30" patternUnits="userSpaceOnUse"><text x="8" y="20" font-size="14" opacity=".2">♥</text></pattern>`,
-    bricks:`<pattern id="wp" x="0" y="0" width="40" height="20" patternUnits="userSpaceOnUse"><rect width="40" height="20" fill="none" stroke="rgba(0,0,0,.1)" stroke-width="1"/><line x1="20" y1="0" x2="20" y2="20" stroke="rgba(0,0,0,.08)" stroke-width="1"/></pattern>`,
-  };
-  return`<defs>${patterns[wp]||''}</defs><rect width="100%" height="100%" fill="url(#wp)"/>`;
-}
-
-function buildMyRoom(){
-  return`<div class="profile-wrap">
-    <a href="room.html" style="display:flex;align-items:center;gap:14px;padding:20px;background:var(--warm);border:1.5px solid var(--ink5);border-radius:14px;text-decoration:none;color:var(--ink);transition:border-color .15s" onmouseover="this.style.borderColor='var(--acc)'" onmouseout="this.style.borderColor='var(--ink5)'">
-      <div style="font-size:48px;line-height:1">🏠</div>
-      <div>
-        <div style="font-size:16px;font-weight:900;color:var(--ink);margin-bottom:4px">내 방 꾸미기</div>
-        <div style="font-size:12px;color:var(--ink3);font-weight:600">벽·바닥·창문·조명·가구 수십 종</div>
-      </div>
-      <div style="margin-left:auto;font-size:20px;color:var(--ink3)">→</div>
-    </a>
-    <a href="avatar.html" style="display:flex;align-items:center;gap:14px;padding:20px;background:var(--warm);border:1.5px solid var(--ink5);border-radius:14px;text-decoration:none;color:var(--ink);transition:border-color .15s" onmouseover="this.style.borderColor='var(--acc)'" onmouseout="this.style.borderColor='var(--ink5)'">
-      <div id="room-avatar-preview" style="font-size:48px;line-height:1">🧑</div>
-      <div>
-        <div style="font-size:16px;font-weight:900;color:var(--ink);margin-bottom:4px">내 아바타 만들기</div>
-        <div style="font-size:12px;color:var(--ink3);font-weight:600">성별·얼굴·머리·눈·코·입·옷·액세서리</div>
-      </div>
-      <div style="margin-left:auto;font-size:20px;color:var(--ink3)">→</div>
-    </a>
-  </div>`;
-}
-function bindMyRoom(){}
-
-/* ── 날씨 AI 채팅 ── */
-let wxChatHistory=[];
-
-function buildWeatherChat(){
-  const cw=weatherCache.data?weatherCache.data.current_weather:null;
-  const wxBar=cw?`<div class="wchat-weather-bar">
-    ${WX_ICONS[cw.weathercode]||'🌡'} ${Math.round(cw.temperature)}°C · ${WX_DESC[cw.weathercode]||''} · ${wxLocName}
-    <span style="margin-left:auto;font-size:10px;opacity:.7">날씨 AI와 대화해요</span>
-  </div>`:`<div class="wchat-weather-bar">📡 날씨 정보 없음 — 날씨 탭 먼저 열어주세요</div>`;
-
-  const msgs=wxChatHistory.map(m=>{
-    if(m.role==='user') return`<div class="wmsg user"><div class="wmsg-bubble">${m.content}</div></div>`;
-    return`<div class="wmsg ai">
-      <div class="wmsg-avatar">🌶️</div>
-      <div class="wmsg-bubble">${m.content.replace(/\n/g,'<br>')}</div>
-    </div>`;
-  }).join('');
-
-  const empty=wxChatHistory.length===0?`<div style="text-align:center;padding:30px 20px;color:var(--ink3)">
-    <div style="font-size:36px;margin-bottom:8px">🌤</div>
-    <div style="font-size:13px;font-weight:600">날씨 AI에게 뭐든 물어봐요!<br><span style="font-size:11px;opacity:.7">오늘 우산 필요해? / 주말 날씨는? / 옷차림 추천해줘</span></div>
-  </div>`:'';
-
-  return`<div class="wchat-wrap">
-    ${wxBar}
-    <div class="wchat-messages" id="wchat-msgs">${empty}${msgs}</div>
-    <div class="wchat-input-row">
-      <input class="wchat-input" id="wchat-input" placeholder="날씨 AI에게 물어보세요..." maxlength="200">
-      <button class="wchat-send" id="wchat-send">전송</button>
-    </div>
-  </div>`;
-}
-
-function bindWeatherChat(){
-  const input=document.getElementById('wchat-input');
-  const sendBtn=document.getElementById('wchat-send');
-  if(!input||!sendBtn) return;
-
-  const send=async()=>{
-    const text=input.value.trim();
-    if(!text) return;
-    input.value='';
-    sendBtn.disabled=true;
-
-    wxChatHistory.push({role:'user',content:text});
-
-    // 타이핑 표시
-    const msgs=document.getElementById('wchat-msgs');
-    if(msgs){
-      msgs.innerHTML+=`<div class="wmsg user"><div class="wmsg-bubble">${text}</div></div>`;
-      msgs.innerHTML+=`<div class="wmsg ai" id="typing-msg"><div class="wmsg-avatar">🌶️</div><div class="wmsg-bubble"><div class="typing-dot"><span></span><span></span><span></span></div></div></div>`;
-      msgs.scrollTop=msgs.scrollHeight;
-    }
-
-    // 날씨 컨텍스트 구성
-    const cw=weatherCache.data?weatherCache.data.current_weather:null;
-    const wxContext=cw?`현재 날씨 정보:
-- 위치: ${wxLocName}
-- 기온: ${Math.round(cw.temperature)}°C
-- 날씨: ${WX_DESC[cw.weathercode]||'알 수 없음'}
-- 풍속: ${cw.windspeed}m/s`:'날씨 정보를 아직 불러오지 못했어요.';
-
-    try{
-      const res=await fetch('https://api.anthropic.com/v1/messages',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          model:'claude-sonnet-4-6',
-          max_tokens:1000,
-          system:`당신은 "소스봇"이에요 — 핫소스 병 캐릭터로, 날씨에 대해 친근하고 재미있게 이야기해주는 AI예요. 짧고 명쾌하게 답해줘요. 이모지를 적절히 써서 따뜻한 대화체로 말해요. 답변은 3-5문장 이내로 해요.\n\n${wxContext}`,
-          messages:wxChatHistory.map(m=>({role:m.role,content:m.content}))
-        })
-      });
-      const data=await res.json();
-      const reply=data.content?.[0]?.text||'날씨 정보를 가져오지 못했어요 😢';
-      wxChatHistory.push({role:'assistant',content:reply});
-
-      const typing=document.getElementById('typing-msg');
-      if(typing) typing.outerHTML=`<div class="wmsg ai"><div class="wmsg-avatar">🌶️</div><div class="wmsg-bubble">${reply.replace(/\n/g,'<br>')}</div></div>`;
-    }catch(e){
-      const typing=document.getElementById('typing-msg');
-      if(typing) typing.outerHTML=`<div class="wmsg ai"><div class="wmsg-avatar">🌶️</div><div class="wmsg-bubble">앗, 연결이 안 됐어요 😢 잠시 후 다시 시도해줘요!</div></div>`;
-    }
-
-    const msgs2=document.getElementById('wchat-msgs');
-    if(msgs2) msgs2.scrollTop=msgs2.scrollHeight;
-    sendBtn.disabled=false;
-    input.focus();
-  };
-
-  sendBtn.onclick=send;
-  input.onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send();}};
-}
-
 function saveAll(){
-  try{
-    localStorage.setItem('nyanodo_todos',JSON.stringify(todos));
-    localStorage.setItem('nyanodo_moods',JSON.stringify(moods));
-    localStorage.setItem('nyanodo_nextId',String(nextId));
-    localStorage.setItem('nyanodo_diaries',JSON.stringify(diaries));
-    localStorage.setItem('nyanodo_photos',JSON.stringify(photos));
-  }catch(e){}
+  safeStorage.setItem('nyanodo_todos',JSON.stringify(todos));
+  safeStorage.setItem('nyanodo_moods',JSON.stringify(moods));
+  safeStorage.setItem('nyanodo_nextId',String(nextId));
+  safeStorage.setItem('nyanodo_diaries',JSON.stringify(diaries));
+  safeStorage.setItem('nyanodo_photos',JSON.stringify(photos));
 }
+
+/* ── 알림(30분 전) ── */
+let notifiedKeys={};
+{const s=safeStorage.getItem('nyanodo_notified');notifiedKeys=s?JSON.parse(s):{};}
+function requestNotifPermission(cb){
+  if(!('Notification' in window)){if(cb)cb();return;}
+  try{
+    if(Notification.permission==='default'){
+      const p=Notification.requestPermission();
+      if(p&&p.then) p.then(()=>{if(cb)cb();}).catch(()=>{if(cb)cb();});
+      else if(cb) cb();
+    }else if(cb) cb();
+  }catch(e){if(cb)cb();}
+}
+function scheduleAlarm(t){
+  // 실제 발송은 checkAlarms 주기 루프가 담당. 여기서는 권한만 요청.
+  if(t.alarm) requestNotifPermission();
+}
+function fireNotif(title,body){
+  if('Notification' in window && Notification.permission==='granted'){
+    try{new Notification(title,{body,icon:'',tag:title+body});}catch(e){}
+  }
+  // 진동(모바일, 지원 시)
+  if(navigator.vibrate) navigator.vibrate([120,60,120]);
+}
+function checkAlarms(){
+  const now=new Date();
+  const nowStr=df(now);
+  const nowMin=now.getHours()*60+now.getMinutes();
+  todos.forEach(t=>{
+    if(!t.alarm||t.done||!t.time)return;
+    // 기간 내 오늘 날짜가 포함되는지 (반복 없는 단순 케이스 + date~dateEnd 범위)
+    const end=t.dateEnd||t.date;
+    if(nowStr<t.date||nowStr>end)return;
+    const [hh,mm]=t.time.split(':').map(Number);
+    const targetMin=hh*60+mm;
+    const diff=targetMin-nowMin;
+    const key=t.id+'_'+nowStr;
+    // 정확히 30분 전 그 분(minute)만 잡는 대신, 30분 전부터 할 일 시각까지의 구간에서
+    // 한 번이라도 체크가 돌면 알림이 가도록 범위로 체크 (탭이 백그라운드라 타이머가
+    // 정확히 1분마다 안 돌아도 알림을 놓치지 않게 함)
+    if(diff<=30 && diff>=0 && !notifiedKeys[key]){
+      fireNotif('⏰ 할 일 알림',`${t.title} · ${t.time}${diff>0?` (${diff}분 전)`:' (지금)'}`);
+      notifiedKeys[key]=true;
+      safeStorage.setItem('nyanodo_notified',JSON.stringify(notifiedKeys));
+    }
+  });
+}
+setInterval(checkAlarms,20000);
+checkAlarms();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkAlarms();});
+if(todos.some(t=>t.alarm)) requestNotifPermission();
 
 function df(d){return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`}
 function p2(n){return String(n).padStart(2,'0')}
@@ -850,7 +565,7 @@ if(moods[todayStr]!==undefined) applyMoodTheme(moods[todayStr]);
 function selectMood(idx){
   const ds=df(selD);
   moods[ds]=idx;
-  try{localStorage.setItem('nyanodo_moods',JSON.stringify(moods));}catch(e){}
+  safeStorage.setItem('nyanodo_moods',JSON.stringify(moods));
   applyMoodTheme(idx);
   renderL();
 }
@@ -871,11 +586,13 @@ document.getElementById('wx-badge-btn').onclick=e=>{
 function loadWeather(){
   const wrap=document.getElementById('wx-wrap');
   if(!navigator.geolocation){wrap.innerHTML='<div class="wx-err">위치 서비스 미지원</div>';return;}
-  navigator.geolocation.getCurrentPosition(
-    pos=>fetchWeather(pos.coords.latitude,pos.coords.longitude,wrap),
-    ()=>{wrap.innerHTML='<div class="wx-err">📍 위치 권한을 허용해 주세요</div>';},
-    {timeout:8000}
-  );
+  try{
+    navigator.geolocation.getCurrentPosition(
+      pos=>fetchWeather(pos.coords.latitude,pos.coords.longitude,wrap),
+      ()=>{wrap.innerHTML='<div class="wx-err">📍 위치 권한을 허용해 주세요</div>';},
+      {timeout:8000}
+    );
+  }catch(e){wrap.innerHTML='<div class="wx-err">위치 서비스를 사용할 수 없어요</div>';}
 }
 async function fetchWeather(lat,lon,wrap){
   const now=Date.now();
@@ -963,7 +680,7 @@ function renderL(){
   const rem=(7-((sdow+lastDay)%7))%7;
   for(let i=1;i<=rem;i++) cells+=dcell(new Date(cy,cm+1,i),true);
   const ds0=df(selD);
-  const dayTodos=todos.filter(t=>t.date===ds0);
+  const dayTodos=todos.filter(t=>ds0>=t.date&&ds0<=(t.dateEnd||t.date));
   const total=dayTodos.length,done=dayTodos.filter(t=>t.done).length;
   const rate=total?Math.round(done/total*100):0;
   const mi=moods[df(selD)];
@@ -1018,12 +735,13 @@ function renderL(){
 function dcell(d,fade){
   const ds=df(d),dow=d.getDay();
   const isT=ds===todayStr,isSel=ds===df(selD),sun=dow===0;
-  const dots=todos.filter(t=>t.date===ds).slice(0,3).map(t=>`<div class="dot" style="background:${CATS[t.cat].c}"></div>`).join('');
+  const dots=todos.filter(t=>ds>=t.date&&ds<=(t.dateEnd||t.date)).slice(0,3).map(t=>`<div class="dot" style="background:${CATS[t.cat].c}"></div>`).join('');
   const moodIdx=moods[ds];
-  const moodDot=moodIdx!==undefined?`<div class="dot" style="background:${MOODS[moodIdx].c};width:5px;height:5px"></div>`:'';
   const cls=['dc',fade?'fade':'',isT?'tod':'',isSel&&!isT?'sel':'',sun?'sun':''].filter(Boolean).join(' ');
   const lun=lunarOn?`<div class="lun">${lunar(d.getFullYear(),d.getMonth()+1,d.getDate())}</div>`:'';
-  return`<div class="${cls}" data-d="${ds}"><div class="dn">${d.getDate()}</div>${lun}${(dots||moodDot)?`<div class="dotrow">${dots}${moodDot}</div>`:''}</div>`;
+  /* 기분은 날짜칸 배경색으로, 할 일은 점(dot)으로 구분 표시. 오늘/선택된 칸은 기존 강조색 우선 */
+  const bgStyle=(moodIdx!==undefined && !isT && !isSel)?` style="background:${MOODS[moodIdx].p3}"`:'';
+  return`<div class="${cls}" data-d="${ds}"${bgStyle}><div class="dn">${d.getDate()}</div>${lun}${dots?`<div class="dotrow">${dots}</div>`:''}</div>`;
 }
 
 function renderR(){
@@ -1049,14 +767,11 @@ function renderR(){
     <div class="rtab-bar">
       <button class="rtab${rtab==='diary'?' on':''}" data-tab="diary">📓 일기</button>
       <button class="rtab${rtab==='todo'?' on':''}" data-tab="todo">📋 할 일</button>
-      <button class="rtab${rtab==='weather'?' on':''}" data-tab="weather">🌤 날씨</button>
-      <button class="rtab${rtab==='myroom'?' on':''}" data-tab="myroom">🏠 내 방</button>
-      <button class="rtab${rtab==='profile'?' on':''}" data-tab="profile">👤 프로필</button>
     </div>`;
   let body='';
   if(rtab==='todo'){
     const now=`${p2(today.getHours())}:${p2(today.getMinutes())}`;
-    let items=todos.filter(t=>t.date===ds);
+    let items=todos.filter(t=>ds>=t.date&&ds<=(t.dateEnd||t.date));
     if(fmode==='active')items=items.filter(t=>!t.done);
     if(fmode==='done')items=items.filter(t=>t.done);
     const late=items.filter(t=>!t.done&&t.time&&t.time<now);
@@ -1066,16 +781,11 @@ function renderR(){
     const grp=(lbl,arr)=>{if(!arr.length)return;lhtml+=`<div class="slbl">${lbl}</div>`;arr.forEach(t=>{lhtml+=tcard(t);});};
     if(fmode!=='done'){grp('지연됨',late);grp('예정',up);}
     if(fmode!=='active')grp('완료',dn);
-    if(!todos.filter(t=>t.date===ds).length) lhtml=`<div class="empty"><p>이 날 할 일이 없어요 🌶️</p></div>`;
+    const allDayItems=todos.filter(t=>ds>=t.date&&ds<=(t.dateEnd||t.date));
+    if(!allDayItems.length) lhtml=`<div class="empty"><p>이 날 할 일이 없어요 🌶️</p></div>`;
     body=`<div class="list">${lhtml}</div>`;
-  } else if(rtab==='diary'){
+  } else {
     body=buildDiaryTab(ds);
-  } else if(rtab==='weather'){
-    body=buildWeatherChat();
-  } else if(rtab==='myroom'){
-    body=buildMyRoom();
-  } else if(rtab==='profile'){
-    body=buildProfile();
   }
   rp.innerHTML=header+body;
   rp.querySelectorAll('.rtab').forEach(b=>b.onclick=()=>{rtab=b.dataset.tab;renderR();});
@@ -1085,34 +795,34 @@ function renderR(){
     rp.querySelectorAll('.chk').forEach(el=>el.onclick=e=>{e.stopPropagation();const t=todos.find(x=>x.id===+el.dataset.id);if(t){t.done=!t.done;render();}});
     rp.querySelectorAll('.btn-edit').forEach(el=>el.onclick=e=>{e.stopPropagation();editId=+el.dataset.id;modal=true;renderR();});
     rp.querySelectorAll('.btn-del').forEach(el=>el.onclick=e=>{e.stopPropagation();todos=todos.filter(x=>x.id!==+el.dataset.id);render();});
-  } else if(rtab==='diary'){
+  } else {
     bindDiaryTab(ds);
-  } else if(rtab==='weather'){
-    bindWeatherChat();
-  } else if(rtab==='myroom'){
-    bindMyRoom();
-  } else if(rtab==='profile'){
-    bindProfile();
   }
 }
 
 /* ── DIARY ── */
+function photoSrc(p){return typeof p==='string'?p:p.src;}
+function photoCap(p){return typeof p==='string'?'':(p.caption||'');}
 function buildDiaryTab(ds){
   const dayPhotos=photos[ds]||[];
   const n=dayPhotos.length;
-  const gridClass=n===0?'empty-grid':n===1?'one':'multi';
-  const photoItems=dayPhotos.map((src,i)=>`
+  const gridClass=n===0?'empty-grid':'stacked';
+  const photoItems=dayPhotos.map((p,i)=>`
     <div class="dp">
-      <img src="${src}" data-idx="${i}">
-      <button class="dp-del" data-idx="${i}">✕</button>
-      <button class="dp-dl" data-idx="${i}">↓</button>
+      <div class="dp-imgwrap">
+        <img src="${photoSrc(p)}" data-idx="${i}">
+        <button class="dp-del" data-idx="${i}">✕</button>
+        <button class="dp-dl" data-idx="${i}">↓</button>
+      </div>
+      <textarea class="dp-cap" id="dp-cap-${i}" data-idx="${i}" placeholder="이 사진에 대한 글을 남겨보세요…">${photoCap(p)}</textarea>
     </div>`).join('');
-  const addBtn=n<9?`<div class="dp dp-add" id="dp-add-btn"><div class="dp-add-icon">📷</div><div class="dp-add-lbl">사진 추가</div></div>`:'';
+  const addBtn=n<9?`<label class="dp-add" for="photo-input" id="dp-add-btn"><div class="dp-add-icon">📷</div><div class="dp-add-lbl">사진 추가</div></label>`:'';
   return`
     <div class="diary-wrap">
       <div class="photo-section">
         <div class="section-title">📷 사진</div>
-        <div class="photo-grid ${gridClass}">${photoItems}${addBtn}</div>
+        <div class="photo-grid ${gridClass}">${photoItems}</div>
+        ${addBtn}
         <input type="file" id="photo-input" accept="image/*" multiple style="display:none">
       </div>
       <div class="diary-section">
@@ -1126,17 +836,16 @@ function buildDiaryTab(ds){
     </div>`;
 }
 function bindDiaryTab(ds){
-  const addBtn=document.getElementById('dp-add-btn');
   const inp=document.getElementById('photo-input');
-  if(addBtn&&inp){
-    addBtn.onclick=()=>inp.click();
+  if(inp){
     inp.onchange=async e=>{
       for(const file of [...e.target.files]){
         if(!photos[ds])photos[ds]=[];
         if(photos[ds].length>=9)break;
         const fr=new FileReader();
         const raw=await new Promise(r=>{fr.onload=ev=>r(ev.target.result);fr.readAsDataURL(file);});
-        photos[ds].push(await compressImage(raw,1200,1200,0.75));
+        const compressed=await compressImage(raw,1200,1200,0.75);
+        photos[ds].push({src:compressed,caption:''});
         saveAll();
       }
       renderR();
@@ -1149,14 +858,27 @@ function bindDiaryTab(ds){
   });
   document.querySelectorAll('.dp-dl').forEach(btn=>btn.onclick=e=>{
     e.stopPropagation();
-    const src=(photos[ds]||[])[+btn.dataset.idx];
-    if(!src)return;
-    const a=document.createElement('a');a.href=src;a.download=`catchup_${ds}_${+btn.dataset.idx+1}.jpg`;a.click();
+    const p=(photos[ds]||[])[+btn.dataset.idx];
+    if(!p)return;
+    const a=document.createElement('a');a.href=photoSrc(p);a.download=`catchup_${ds}_${+btn.dataset.idx+1}.jpg`;a.click();
   });
   document.querySelectorAll('.dp img').forEach(img=>img.onclick=()=>{
     const lb=document.createElement('div');lb.className='dp-lightbox';
     lb.innerHTML=`<img src="${img.src}">`;lb.onclick=()=>document.body.removeChild(lb);
     document.body.appendChild(lb);
+  });
+  document.querySelectorAll('.dp-cap').forEach(ta=>{
+    autoGrow(ta);
+    let saveTimer=null;
+    ta.oninput=()=>{
+      autoGrow(ta);
+      const i=+ta.dataset.idx;
+      const arr=photos[ds]||[];
+      const cur=arr[i];
+      arr[i]=typeof cur==='string'?{src:cur,caption:ta.value}:{...cur,caption:ta.value};
+      clearTimeout(saveTimer);
+      saveTimer=setTimeout(saveAll,400);
+    };
   });
   const saveBtn=document.getElementById('diary-save');
   if(saveBtn) saveBtn.onclick=()=>{
@@ -1165,12 +887,23 @@ function bindDiaryTab(ds){
     const t=document.getElementById('diary-toast');
     if(t){t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2000);}
   };
+  const dt=document.getElementById('diary-text');
+  if(dt){
+    autoGrow(dt);
+    dt.oninput=()=>autoGrow(dt);
+  }
+}
+function autoGrow(ta){
+  ta.style.height='auto';
+  ta.style.height=(ta.scrollHeight+2)+'px';
 }
 
 /* ── TODO CARD ── */
 function tcard(t){
   const cat=CATS[t.cat];
   const pl={high:'높음',mid:'중간',low:'낮음'};
+  const isMulti=t.dateEnd&&t.dateEnd!==t.date;
+  const periodLbl=isMulti?`${t.date.slice(5).replace('-','.')}~${t.dateEnd.slice(5).replace('-','.')}`:'';
   return`<div class="tc${t.done?' donec':''}">
     <div class="tc-icon" style="background:${cat.bg};padding:6px">${catSVG(cat.c,cat.bg,CAT_ACTS[t.cat])}</div>
     <div class="tc-body">
@@ -1180,6 +913,8 @@ function tcard(t){
         <span class="badge b${t.pri[0]}">${pl[t.pri]}</span>
         ${t.rep!=='없음'?`<span class="badge br">${t.rep}</span>`:''}
         ${t.time?`<span class="tc-time">⏰ ${t.time}</span>`:''}
+        ${t.alarm?`<span class="tc-alarm" title="30분 전 알림">🔔</span>`:''}
+        ${isMulti?`<span class="tc-period">📅 ${periodLbl}</span>`:''}
       </div>
     </div>
     <div class="tc-r">
@@ -1202,9 +937,19 @@ function buildModal(){
     <div class="mhd">${editId?'할 일 수정':'새 할 일 추가'}</div>
     <div class="field"><label>제목</label><input id="ft" value="${v('title','')}" placeholder="할 일을 입력하세요"/></div>
     <div class="field"><label>카테고리</label><div class="cat-pick" id="cpick">${cph}</div></div>
+    <div class="field"><label>기간</label>
+      <div class="twocol">
+        <input type="date" id="fd" value="${v('date',df(selD))}"/>
+        <input type="date" id="fde" value="${v('dateEnd',v('date',df(selD)))}"/>
+      </div>
+      <div class="period-hint">시작일 → 종료일 (하루짜리 할 일이면 같게 두세요)</div>
+    </div>
     <div class="twocol">
-      <div class="field"><label>날짜</label><input type="date" id="fd" value="${v('date',df(selD))}"/></div>
       <div class="field"><label>시간</label><input type="time" id="ftm" value="${v('time','')}"/></div>
+      <div class="field"><label>알림</label>
+        <label class="chkrow"><input type="checkbox" id="falarm"${v('alarm',false)?' checked':''}/> 30분 전 알림</label>
+        <div class="alarm-status" id="alarm-status"></div>
+      </div>
     </div>
     <div class="field"><label>우선순위</label>
       <select id="fp"><option value="high"${v('pri','mid')==='high'?' selected':''}>높음</option><option value="mid"${v('pri','mid')==='mid'?' selected':''}>중간</option><option value="low"${v('pri','mid')==='low'?' selected':''}>낮음</option></select>
@@ -1219,12 +964,54 @@ function bindModal(){
   let sr=editId?todos.find(x=>x.id===editId).rep:'없음';
   document.querySelectorAll('.cp').forEach(b=>b.onclick=()=>{sc=+b.dataset.ci;document.querySelectorAll('.cp').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
   document.querySelectorAll('.rs').forEach(b=>b.onclick=()=>{sr=b.dataset.rv;document.querySelectorAll('.rs').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
+  const alarmChk=document.getElementById('falarm');
+  const statusEl=document.getElementById('alarm-status');
+  function refreshAlarmStatus(){
+    if(!statusEl||!alarmChk)return;
+    if(!alarmChk.checked){statusEl.textContent='';statusEl.className='alarm-status';return;}
+    if(location.protocol==='file:'){
+      statusEl.textContent='⚠️ 파일을 직접 열면 브라우저가 알림을 차단할 수 있어요. 인터넷 주소(https)로 접속하면 정상 동작해요.';
+      statusEl.className='alarm-status warn';
+    }else if(!('Notification' in window)){
+      statusEl.textContent='⚠️ 이 브라우저는 알림 기능을 지원하지 않아요.';
+      statusEl.className='alarm-status warn';
+    }else if(Notification.permission==='granted'){
+      statusEl.textContent='✓ 알림이 허용되어 있어요.';
+      statusEl.className='alarm-status ok';
+    }else if(Notification.permission==='denied'){
+      statusEl.textContent='⚠️ 알림이 차단되어 있어요. 브라우저 설정에서 이 페이지의 알림을 허용해주세요.';
+      statusEl.className='alarm-status warn';
+    }else{
+      statusEl.textContent='앱이 켜져 있는 동안에만 알림이 와요. 권한 요청 중…';
+      statusEl.className='alarm-status info';
+    }
+  }
+  if(alarmChk){
+    refreshAlarmStatus();
+    alarmChk.onchange=()=>{
+      if(alarmChk.checked) requestNotifPermission(refreshAlarmStatus);
+      else refreshAlarmStatus();
+    };
+  }
   document.getElementById('mc').onclick=()=>{modal=false;renderR();};
   document.getElementById('ms').onclick=()=>{
-    const title=document.getElementById('ft').value.trim();if(!title)return;
-    const d={title,cat:sc,pri:document.getElementById('fp').value,time:document.getElementById('ftm').value,date:document.getElementById('fd').value,done:false,rep:sr,note:document.getElementById('fn').value};
-    if(editId)Object.assign(todos.find(x=>x.id===editId),d);
-    else todos.push({id:nextId++,...d});
+    const titleInput=document.getElementById('ft');
+    const title=titleInput.value.trim();
+    if(!title){
+      titleInput.style.borderColor='#e85d3a';
+      titleInput.placeholder='제목을 입력해주세요!';
+      titleInput.focus();
+      return;
+    }
+    let dateStart=document.getElementById('fd').value||df(selD);
+    let dateEnd=document.getElementById('fde').value||dateStart;
+    if(dateEnd<dateStart){const tmp=dateStart;dateStart=dateEnd;dateEnd=tmp;}
+    const alarmOn=document.getElementById('falarm').checked;
+    const d={title,cat:sc,pri:document.getElementById('fp').value,time:document.getElementById('ftm').value,date:dateStart,dateEnd,done:false,rep:sr,note:document.getElementById('fn').value,alarm:alarmOn};
+    let todoObj;
+    if(editId){todoObj=todos.find(x=>x.id===editId);Object.assign(todoObj,d);}
+    else{todoObj={id:nextId++,...d};todos.push(todoObj);}
+    scheduleAlarm(todoObj);
     modal=false;render();
   };
 }
@@ -1233,9 +1020,11 @@ function bindModal(){
 render();
 
 if(navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(pos=>{
-    fetchWeather(pos.coords.latitude,pos.coords.longitude,document.getElementById('wx-wrap'));
-  },()=>{},{timeout:8000,enableHighAccuracy:false});
+  try{
+    navigator.geolocation.getCurrentPosition(pos=>{
+      fetchWeather(pos.coords.latitude,pos.coords.longitude,document.getElementById('wx-wrap'));
+    },()=>{},{timeout:8000,enableHighAccuracy:false});
+  }catch(e){}
 }
 </script>
 </body></html>
