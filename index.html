@@ -277,6 +277,8 @@ header::before{
 .alarm-status.ok{color:#1a7a50}
 .alarm-status.warn{color:#c03010}
 .alarm-status.info{color:var(--ink3)}
+.alarm-test-btn{margin-top:6px;padding:6px 12px;border:1.5px solid var(--acc);border-radius:20px;background:transparent;color:var(--acc);font-size:11px;font-weight:700;cursor:pointer}
+.alarm-test-btn:active{background:var(--acc3)}
 .tc-period{font-size:11px;font-weight:600;color:var(--ink3)}
 .tc-alarm{font-size:11px}
 
@@ -434,12 +436,7 @@ function scheduleAlarm(t){
 function fireNotif(title,body){
   if('Notification' in window && Notification.permission==='granted'){
     try{
-      const n=new Notification(title,{
-        body,
-        tag:title+body,
-        requireInteraction:true,
-        icon:'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"%3E%3Ccircle cx="50" cy="50" r="48" fill="%23ff6b35"/%3E%3Ctext x="50" y="68" font-size="55" text-anchor="middle"%3E%E2%8F%B0%3C/text%3E%3C/svg%3E'
-      });
+      const n=new Notification(title,{body,tag:'alarm-'+Date.now()});
       n.onclick=()=>{try{window.focus();}catch(e){}};
     }catch(e){}
   }
@@ -982,6 +979,7 @@ function buildModal(){
       <div class="field"><label>알림</label>
         <label class="chkrow"><input type="checkbox" id="falarm"${v('alarm',false)?' checked':''}/> 30분 전 알림</label>
         <div class="alarm-status" id="alarm-status"></div>
+        <button type="button" class="alarm-test-btn" id="alarm-test-btn">🔔 알림 테스트</button>
       </div>
     </div>
     <div class="field"><label>우선순위</label>
@@ -1026,6 +1024,10 @@ function bindModal(){
       else refreshAlarmStatus();
     };
   }
+  const testBtn=document.getElementById('alarm-test-btn');
+  if(testBtn) testBtn.onclick=()=>{
+    fireNotif('⏰ 테스트 알림',`알림이 정상적으로 동작하고 있어요!`);
+  };
   document.getElementById('mc').onclick=()=>{modal=false;renderR();};
   document.getElementById('ms').onclick=()=>{
     const titleInput=document.getElementById('ft');
@@ -1044,6 +1046,10 @@ function bindModal(){
     let todoObj;
     if(editId){todoObj=todos.find(x=>x.id===editId);Object.assign(todoObj,d);}
     else{todoObj={id:nextId++,...d};todos.push(todoObj);}
+    // 시간/알림을 다시 설정했을 수 있으니, 오늘 날짜에 대한 '이미 알렸음' 기록을 지워서
+    // 같은 날 다시 테스트하거나 시간을 바꿔도 알림이 정상적으로 다시 동작하게 함
+    const todayKey=todoObj.id+'_'+df(new Date());
+    if(notifiedKeys[todayKey]){delete notifiedKeys[todayKey];safeStorage.setItem('nyanodo_notified',JSON.stringify(notifiedKeys));}
     scheduleAlarm(todoObj);
     modal=false;render();
   };
