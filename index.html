@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -41,7 +41,7 @@ header::before{
 }
 .h-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-/* 기분 뱃지 (헤더 우측) */
+/* Mood badge (top-right of header) */
 .mood-badge{
   display:flex;align-items:center;gap:6px;
   background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);
@@ -53,7 +53,7 @@ header::before{
 .mood-badge-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.6)}
 .mood-badge-name{font-size:12px;font-weight:700;color:#fff}
 
-/* 기분 선택 드롭다운 */
+/* Mood selection dropdown */
 .mood-dropdown{
   position:absolute;top:calc(100% + 8px);right:0;
   background:var(--card);border-radius:16px;
@@ -70,7 +70,7 @@ header::before{
 .mb-lbl{font-size:9px;font-weight:700;color:var(--ink3);text-align:center}
 .mb.on .mb-lbl{color:var(--acc2)}
 
-/* 날씨 뱃지 */
+/* Weather badge */
 .wx-badge{
   display:flex;align-items:center;gap:6px;
   background:rgba(255,255,255,.1);border:1.5px solid rgba(255,255,255,.18);
@@ -82,7 +82,7 @@ header::before{
 .wx-temp{font-size:14px;font-weight:700;color:#fff}
 .wx-desc{font-size:10px;color:rgba(255,255,255,.6);font-weight:500;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
-/* ── 날씨 패널 ── */
+/* ── WEATHER PANEL ── */
 .wx-panel{background:var(--card);border-radius:16px;border:1.5px solid var(--ink5);box-shadow:0 4px 20px rgba(0,0,0,.07);display:none;overflow:hidden}
 .wx-panel.open{display:block}
 .wx-wrap{padding:14px 18px}
@@ -111,17 +111,17 @@ header::before{
 .wx-loading{text-align:center;padding:24px;color:var(--ink3);font-size:13px}
 .wx-err{background:#fff0eb;border:1.5px solid var(--acc);border-radius:10px;padding:10px 12px;font-size:12px;font-weight:600;color:var(--acc2);margin-bottom:8px}
 
-/* ── BODY: 세로 단일 컬럼 스크롤 ── */
+/* ── BODY: vertical single-column scroll ── */
 .body{display:flex;flex-direction:column;gap:10px}
 
-/* 데스크탑에서만 2컬럼 */
+/* 2 columns on desktop only */
 @media(min-width:900px){
   .body{display:grid;grid-template-columns:300px 1fr;gap:10px}
 }
 
 .left{background:var(--card);border-radius:16px;border:1.5px solid var(--ink5);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 2px 12px rgba(26,22,36,.05)}
 
-/* 모바일에서 right 패널 min-height */
+/* min-height for right panel on mobile */
 .right{display:flex;flex-direction:column;background:var(--card);border-radius:16px;border:1.5px solid var(--ink5);overflow:hidden;box-shadow:0 2px 12px rgba(26,22,36,.05);min-height:500px}
 .cal-hd{padding:12px 14px 6px;display:flex;align-items:center;justify-content:space-between}
 .cal-title{font-size:14px;font-weight:700;color:var(--ink)}
@@ -211,11 +211,11 @@ header::before{
 .diary-wrap::-webkit-scrollbar{width:3px}
 .diary-wrap::-webkit-scrollbar-thumb{background:var(--ink5);border-radius:2px}
 
-/* 사진 섹션 */
+/* Photo section */
 .photo-section{background:var(--warm);border:1.5px solid var(--ink5);border-radius:14px;padding:12px}
 .section-title{font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
 
-/* 사진 그리드 — 사진 + 캡션이 세로로 쌓이는 카드 형태 */
+/* Photo grid — photo + caption stacked vertically as cards */
 .photo-grid{display:grid;gap:14px}
 .photo-grid.empty-grid{display:none}
 .dp{display:flex;flex-direction:column;gap:6px}
@@ -234,7 +234,7 @@ header::before{
 .dp-add-lbl{font-size:10px;font-weight:700;color:var(--ink3)}
 .dp-add:hover .dp-add-icon,.dp-add:hover .dp-add-lbl{color:var(--acc)}
 
-/* 일기 섹션 */
+/* Diary section */
 .diary-section{background:var(--warm);border:1.5px solid var(--ink5);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
 .diary-textarea{width:100%;min-height:140px;border:1.5px solid var(--ink4);border-radius:10px;padding:10px 12px;font-family:'Noto Sans KR',sans-serif;font-size:14px;font-weight:400;color:var(--ink);background:var(--card);resize:vertical;outline:none;line-height:1.8;overflow-y:hidden}
 .diary-textarea:focus{border-color:var(--acc)}
@@ -244,7 +244,7 @@ header::before{
 .diary-save-btn{padding:7px 18px;background:var(--acc);color:#fff;border:none;border-radius:var(--rp);font-size:13px;font-weight:700;cursor:pointer}
 .diary-save-btn:hover{background:var(--acc2)}
 
-/* 라이트박스 */
+/* Lightbox */
 .dp-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;z-index:9999;cursor:pointer}
 .dp-lightbox img{max-width:92vw;max-height:92vh;border-radius:14px;object-fit:contain;box-shadow:0 8px 40px rgba(0,0,0,.5)}
 
@@ -282,7 +282,7 @@ header::before{
 .tc-period{font-size:11px;font-weight:600;color:var(--ink3)}
 .tc-alarm{font-size:11px}
 
-/* 인앱 알람 배너 — 브라우저 알림과 별개로 화면 안에서도 눈에 띄게 표시 */
+/* In-app alarm banner — shown on-screen separately from browser notifications */
 #alarm-banner{position:fixed;top:14px;left:50%;transform:translateX(-50%) translateY(-30px);width:min(92vw,420px);
   background:linear-gradient(135deg,#ff6b35,#ff8c5a);color:#fff;border-radius:16px;padding:14px 16px;
   display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(255,107,53,.45);
@@ -295,10 +295,10 @@ header::before{
 #alarm-banner .ab-close{background:rgba(255,255,255,.25);border:none;color:#fff;width:26px;height:26px;border-radius:50%;font-size:13px;cursor:pointer;flex-shrink:0}
 @keyframes abring{0%,100%{transform:rotate(0)}25%{transform:rotate(-15deg)}75%{transform:rotate(15deg)}}
 
-/* 기분별 테마 전환 */
+/* Theme switching per mood */
 body,header,.left,.right,.wx-panel{transition:background .5s,border-color .4s}
 
-/* 기분 캐릭터 애니메이션 keyframes */
+/* Mood character animation keyframes */
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes shake{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-10deg)}60%{transform:rotate(10deg)}}
 @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
@@ -312,28 +312,28 @@ body,header,.left,.right,.wx-panel{transition:background .5s,border-color .4s}
   <header>
     <div class="h-title">Catch-up!</div>
     <div class="h-right">
-      <!-- 날씨 뱃지 -->
+      <!-- Weather badge -->
       <div class="wx-badge" id="wx-badge-btn">
         <div class="wx-icon" id="wx-badge-icon">🌤</div>
         <div>
           <div class="wx-temp" id="wx-badge-temp">--°</div>
-          <div class="wx-desc" id="wx-badge-desc">날씨 로딩 중</div>
+          <div class="wx-desc" id="wx-badge-desc">Loading weather…</div>
         </div>
       </div>
-      <!-- 현재 기분 표시 (읽기 전용 — 선택은 왼쪽 패널에서) -->
+      <!-- Current mood display (read-only — selection happens in the left panel) -->
       <div class="mood-badge" id="mood-badge-display">
         <div id="mood-badge-svg"></div>
         <div class="mood-badge-info">
-          <span class="mood-badge-label">오늘 기분</span>
-          <span class="mood-badge-name" id="mood-badge-name">선택해줘 ↙</span>
+          <span class="mood-badge-label">Today's mood</span>
+          <span class="mood-badge-name" id="mood-badge-name">Pick one ↙</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- 날씨 패널 -->
+  <!-- Weather panel -->
   <div class="wx-panel" id="wx-panel">
-    <div class="wx-wrap" id="wx-wrap"><div class="wx-loading">📡 위치 권한이 필요해요…</div></div>
+    <div class="wx-wrap" id="wx-wrap"><div class="wx-loading">📡 Location permission needed…</div></div>
   </div>
 
   <!-- BODY -->
@@ -345,40 +345,40 @@ body,header,.left,.right,.wx-panel{transition:background .5s,border-color .4s}
 </div>
 
 <script>
-/* ── 데이터 ── */
+/* ── DATA ── */
 const today=new Date(),todayStr=df(today);
 let cy=today.getFullYear(),cm=today.getMonth(),selD=new Date(today);
 let lunarOn=false,fmode='all',editId=null,modal=false,rtab='diary';
 let weatherCache={},wxLocName='',wxPanelOpen=false,moodDropOpen=false;
 
 const CATS=[
-  {n:'업무',c:'#7c6fe0',bg:'#ede9ff'},
-  {n:'공부',c:'#3dba8c',bg:'#e3faf2'},
-  {n:'운동',c:'#e85d3a',bg:'#fde8e4'},
-  {n:'생활',c:'#e09030',bg:'#fef3dd'},
-  {n:'기타',c:'#a8a3bb',bg:'#edeaf4'},
+  {n:'Work',c:'#7c6fe0',bg:'#ede9ff'},
+  {n:'Study',c:'#3dba8c',bg:'#e3faf2'},
+  {n:'Exercise',c:'#e85d3a',bg:'#fde8e4'},
+  {n:'Life',c:'#e09030',bg:'#fef3dd'},
+  {n:'Other',c:'#a8a3bb',bg:'#edeaf4'},
 ];
 const MOODS=[
-  {l:'신남', c:'#ff3300',p:'#ff3300',p2:'#cc1a00',p3:'#ffb3a0',bg:'#fff0ed',side:'#ffc4b5',anim:'anim-bounce'},
-  {l:'행복', c:'#ff8c00',p:'#ff8c00',p2:'#cc6e00',p3:'#ffd999',bg:'#fff8ee',side:'#ffcc77',anim:'anim-pulse'},
-  {l:'설렘', c:'#e0006e',p:'#e0006e',p2:'#b00055',p3:'#ffb3d9',bg:'#fff0f7',side:'#ff80bf',anim:'anim-bounce'},
-  {l:'평온', c:'#4433dd',p:'#4433dd',p2:'#2211bb',p3:'#c0b8ff',bg:'#f0eeff',side:'#a090ff',anim:'anim-float'},
-  {l:'보통', c:'#7a7a8a',p:'#7a7a8a',p2:'#555566',p3:'#d0cfe0',bg:'#f5f5f8',side:'#b8b8cc',anim:'anim-float'},
-  {l:'피곤', c:'#009966',p:'#009966',p2:'#007744',p3:'#99eedd',bg:'#eefff8',side:'#66ddbb',anim:'anim-droop'},
-  {l:'우울', c:'#2244aa',p:'#2244aa',p2:'#112288',p3:'#99bbee',bg:'#eef2ff',side:'#6688dd',anim:'anim-droop'},
-  {l:'불안', c:'#8800cc',p:'#8800cc',p2:'#6600aa',p3:'#ddaaff',bg:'#f8eeff',side:'#cc88ff',anim:'anim-shake'},
-  {l:'화남', c:'#cc0000',p:'#cc0000',p2:'#990000',p3:'#ff9999',bg:'#fff0f0',side:'#ff6666',anim:'anim-shake'},
-  {l:'졸림', c:'#3366bb',p:'#3366bb',p2:'#224499',p3:'#aaccff',bg:'#eef4ff',side:'#88aaee',anim:'anim-droop'},
+  {l:'Excited', c:'#ff3300',p:'#ff3300',p2:'#cc1a00',p3:'#ffb3a0',bg:'#fff0ed',side:'#ffc4b5',anim:'anim-bounce'},
+  {l:'Happy', c:'#ff8c00',p:'#ff8c00',p2:'#cc6e00',p3:'#ffd999',bg:'#fff8ee',side:'#ffcc77',anim:'anim-pulse'},
+  {l:'Thrilled', c:'#e0006e',p:'#e0006e',p2:'#b00055',p3:'#ffb3d9',bg:'#fff0f7',side:'#ff80bf',anim:'anim-bounce'},
+  {l:'Calm', c:'#4433dd',p:'#4433dd',p2:'#2211bb',p3:'#c0b8ff',bg:'#f0eeff',side:'#a090ff',anim:'anim-float'},
+  {l:'Neutral', c:'#7a7a8a',p:'#7a7a8a',p2:'#555566',p3:'#d0cfe0',bg:'#f5f5f8',side:'#b8b8cc',anim:'anim-float'},
+  {l:'Tired', c:'#009966',p:'#009966',p2:'#007744',p3:'#99eedd',bg:'#eefff8',side:'#66ddbb',anim:'anim-droop'},
+  {l:'Down', c:'#2244aa',p:'#2244aa',p2:'#112288',p3:'#99bbee',bg:'#eef2ff',side:'#6688dd',anim:'anim-droop'},
+  {l:'Anxious', c:'#8800cc',p:'#8800cc',p2:'#6600aa',p3:'#ddaaff',bg:'#f8eeff',side:'#cc88ff',anim:'anim-shake'},
+  {l:'Angry', c:'#cc0000',p:'#cc0000',p2:'#990000',p3:'#ff9999',bg:'#fff0f0',side:'#ff6666',anim:'anim-shake'},
+  {l:'Sleepy', c:'#3366bb',p:'#3366bb',p2:'#224499',p3:'#aaccff',bg:'#eef4ff',side:'#88aaee',anim:'anim-droop'},
 ];
-const REPS=['없음','매일','매주','매월'];
+const REPS=['None','Daily','Weekly','Monthly'];
 const DEFAULT_TODOS=[
-  {id:1,title:'팀 주간 보고서',cat:0,pri:'high',time:'09:00',date:todayStr,dateEnd:todayStr,done:false,rep:'매주',note:'',alarm:true},
-  {id:2,title:'헬스장 1시간',cat:2,pri:'mid',time:'07:00',date:todayStr,dateEnd:todayStr,done:true,rep:'매일',note:'',alarm:false},
-  {id:3,title:'알고리즘 강의 1강',cat:1,pri:'mid',time:'20:00',date:todayStr,dateEnd:todayStr,done:false,rep:'없음',note:'',alarm:false},
-  {id:4,title:'독서 30분',cat:4,pri:'low',time:'22:00',date:todayStr,dateEnd:todayStr,done:false,rep:'매일',note:'',alarm:false},
+  {id:1,title:'Team weekly report',cat:0,pri:'high',time:'09:00',date:todayStr,dateEnd:todayStr,done:false,rep:'Weekly',note:'',alarm:true},
+  {id:2,title:'1 hour at the gym',cat:2,pri:'mid',time:'07:00',date:todayStr,dateEnd:todayStr,done:true,rep:'Daily',note:'',alarm:false},
+  {id:3,title:'Algorithms lecture 1',cat:1,pri:'mid',time:'20:00',date:todayStr,dateEnd:todayStr,done:false,rep:'None',note:'',alarm:false},
+  {id:4,title:'Read for 30 min',cat:4,pri:'low',time:'22:00',date:todayStr,dateEnd:todayStr,done:false,rep:'Daily',note:'',alarm:false},
 ];
-/* ── 안전한 저장소: localStorage 접근이 막힌 환경(예: 미리보기 iframe)에서도
-   스크립트가 멈추지 않도록 메모리 폴백을 제공 ── */
+/* ── Safe storage: provides an in-memory fallback so the script doesn't
+   stop even in environments where localStorage access is blocked (e.g. preview iframes) ── */
 const _memStore={};
 const safeStorage=(()=>{
   let usable=false;
@@ -408,6 +408,24 @@ let todos,moods,nextId,diaries,photos;
 {const s=safeStorage.getItem('nyanodo_photos');photos=s?JSON.parse(s):{};}
 if(todos.length>0){const m=Math.max(...todos.map(t=>t.id));if(nextId<=m)nextId=m+1;}
 
+/* ── One-time migration: translate leftover Korean values saved by an earlier
+   version of this app (recurrence labels + the original sample task titles) ── */
+(function migrateLegacyKoreanData(){
+  const repMap={'없음':'None','매일':'Daily','매주':'Weekly','매월':'Monthly'};
+  const titleMap={
+    '팀 주간 보고서':'Team weekly report',
+    '헬스장 1시간':'1 hour at the gym',
+    '알고리즘 강의 1강':'Algorithms lecture 1',
+    '독서 30분':'Read for 30 min'
+  };
+  let changed=false;
+  todos.forEach(t=>{
+    if(repMap[t.rep]){t.rep=repMap[t.rep];changed=true;}
+    if(titleMap[t.title]){t.title=titleMap[t.title];changed=true;}
+  });
+  if(changed) safeStorage.setItem('nyanodo_todos',JSON.stringify(todos));
+})();
+
 function saveAll(){
   safeStorage.setItem('nyanodo_todos',JSON.stringify(todos));
   safeStorage.setItem('nyanodo_moods',JSON.stringify(moods));
@@ -416,7 +434,7 @@ function saveAll(){
   safeStorage.setItem('nyanodo_photos',JSON.stringify(photos));
 }
 
-/* ── 알림(30분 전) ── */
+/* ── Notifications (30 min before) ── */
 let notifiedKeys={};
 {const s=safeStorage.getItem('nyanodo_notified');notifiedKeys=s?JSON.parse(s):{};}
 function requestNotifPermission(cb){
@@ -430,7 +448,7 @@ function requestNotifPermission(cb){
   }catch(e){if(cb)cb();}
 }
 function scheduleAlarm(t){
-  // 실제 발송은 checkAlarms 주기 루프가 담당. 여기서는 권한만 요청.
+  // Actual sending is handled by the checkAlarms polling loop. Only request permission here.
   if(t.alarm) requestNotifPermission();
 }
 function fireNotif(title,body){
@@ -448,7 +466,7 @@ function showInAppAlarmBanner(title,body){
   if(old) old.remove();
   const b=document.createElement('div');
   b.id='alarm-banner';
-  b.innerHTML=`<div class="ab-icon">⏰</div><div class="ab-text"><div class="ab-title">${title}</div><div class="ab-body">${body}</div></div><button class="ab-close" aria-label="닫기">✕</button>`;
+  b.innerHTML=`<div class="ab-icon">⏰</div><div class="ab-text"><div class="ab-title">${title}</div><div class="ab-body">${body}</div></div><button class="ab-close" aria-label="Close">✕</button>`;
   document.body.appendChild(b);
   requestAnimationFrame(()=>b.classList.add('show'));
   const close=()=>{b.classList.remove('show');setTimeout(()=>b.remove(),300);};
@@ -461,18 +479,18 @@ function checkAlarms(){
   const nowMin=now.getHours()*60+now.getMinutes();
   todos.forEach(t=>{
     if(!t.alarm||t.done||!t.time)return;
-    // 기간 내 오늘 날짜가 포함되는지 (반복 없는 단순 케이스 + date~dateEnd 범위)
+    // Check whether today falls within the date range (simple case, no recurrence + date~dateEnd range)
     const end=t.dateEnd||t.date;
     if(nowStr<t.date||nowStr>end)return;
     const [hh,mm]=t.time.split(':').map(Number);
     const targetMin=hh*60+mm;
     const diff=targetMin-nowMin;
     const key=t.id+'_'+nowStr;
-    // 정확히 30분 전 그 분(minute)만 잡는 대신, 30분 전부터 할 일 시각까지의 구간에서
-    // 한 번이라도 체크가 돌면 알림이 가도록 범위로 체크 (탭이 백그라운드라 타이머가
-    // 정확히 1분마다 안 돌아도 알림을 놓치지 않게 함)
+    // Instead of only catching the exact minute 30 min before, check against the whole
+    // window from 30 min before up to the due time, so the notification still fires even if
+    // the timer doesn't tick exactly every minute while the tab is in the background
     if(diff<=30 && diff>=0 && !notifiedKeys[key]){
-      fireNotif('⏰ 할 일 알림',`${t.title} · ${t.time}${diff>0?` (${diff}분 전)`:' (지금)'}`);
+      fireNotif('⏰ To-do reminder',`${t.title} · ${t.time}${diff>0?` (${diff} min left)`:' (now)'}`);
       notifiedKeys[key]=true;
       safeStorage.setItem('nyanodo_notified',JSON.stringify(notifiedKeys));
     }
@@ -489,11 +507,11 @@ function lunar(y,m,d){
   const diff=Math.floor((new Date(y,m-1,d)-new Date(2000,0,6))/86400000);
   const pos=((diff%29.530588853)+29.530588853)%29.530588853;
   const ld=Math.floor(pos)+1;
-  const lm=['정','2','3','4','5','6','7','8','9','10','11','12'][(((Math.floor(diff/29.530588853)%12)+12)%12)];
-  return ld===1?lm+'월':String(ld);
+  const lm=['1','2','3','4','5','6','7','8','9','10','11','12'][(((Math.floor(diff/29.530588853)%12)+12)%12)];
+  return ld===1?lm+'/1':String(ld);
 }
 
-/* ── 핫소스 병 SVG (카테고리) ── */
+/* ── Hot sauce bottle SVG (category) ── */
 function catSVG(col,bg,act){
   const cap=`<rect x="15" y="2" width="10" height="6" rx="3" fill="#f5c842"/><rect x="16" y="7" width="8" height="3" rx="1.5" fill="#e0b030"/>`;
   const body=`<rect x="10" y="9" width="20" height="26" rx="8" fill="${col}"/><ellipse cx="20" cy="20" rx="6" ry="5" fill="white" opacity=".15"/>`;
@@ -531,17 +549,17 @@ function moodBottleSVG(col,idx,animated,size){
     `<ellipse cx="13" cy="12" rx="2.2" ry="2.8" fill="${col}" opacity=".3"/><ellipse cx="19" cy="12" rx="2.2" ry="2.8" fill="${col}" opacity=".3"/><circle cx="13" cy="12" r="1.1" fill="white"/><circle cx="19" cy="12" r="1.1" fill="white"/><text x="22" y="9" font-size="4" fill="white" opacity=".8">z</text><text x="24" y="7" font-size="5" fill="white" opacity=".9">z</text><line x1="12" y1="20.5" x2="20" y2="20.5" stroke="#1a1624" stroke-width="1.2" stroke-linecap="round"/>`,
   ];
   const inner=`${cap}${body}${lbl}${arms}${legs}${exprs[idx]||exprs[4]}${blush}`;
-  // animated SVG는 고유 id로 JS 애니메이션 루프 연결
+  // animated SVGs are linked to a JS animation loop via a unique id
   const uid='mb'+idx+'_'+(animated?'a':'s');
   const svg=`<svg id="${uid}" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="width:${s}px;height:${s}px;display:block">${inner}</svg>`;
   if(animated){
-    // 렌더 후 requestAnimationFrame으로 애니메이션 적용
+    // apply animation via requestAnimationFrame after render
     setTimeout(()=>startMoodAnim(uid,idx),0);
   }
   return svg;
 }
 
-/* JS 기반 SVG 애니메이션 */
+/* JS-based SVG animation */
 const _animHandles={};
 function startMoodAnim(uid,idx){
   if(_animHandles[uid]) cancelAnimationFrame(_animHandles[uid]);
@@ -568,7 +586,7 @@ function startMoodAnim(uid,idx){
 
 const CAT_ACTS=['work','study','run','home','paw'];
 
-/* ── 테마 ── */
+/* ── THEME ── */
 function applyMoodTheme(idx){
   const m=MOODS[idx];
   const r=document.documentElement.style;
@@ -590,8 +608,8 @@ function updateMoodBadge(idx){
 }
 if(moods[todayStr]!==undefined) applyMoodTheme(moods[todayStr]);
 
-/* ── 기분 드롭다운 — 완전히 독립적 이벤트 ── */
-/* ── 기분 선택 (전역 함수 — 인라인 onclick용) ── */
+/* ── Mood dropdown — fully independent event handling ── */
+/* ── Mood selection (global function — for inline onclick) ── */
 function selectMood(idx){
   const ds=df(selD);
   moods[ds]=idx;
@@ -602,9 +620,9 @@ function selectMood(idx){
 
 
 
-/* ── 날씨 ── */
+/* ── WEATHER ── */
 const WX_ICONS={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'🌨',73:'🌨',75:'🌨',80:'🌦',81:'🌧',82:'🌧',95:'⛈',96:'⛈',99:'⛈'};
-const WX_DESC={0:'맑음',1:'대체로 맑음',2:'구름 조금',3:'흐림',45:'안개',48:'짙은 안개',51:'이슬비',53:'이슬비',55:'이슬비',61:'비',63:'비',65:'강한 비',71:'눈',73:'눈',75:'강한 눈',80:'소나기',81:'소나기',82:'강한 소나기',95:'천둥번개',96:'우박',99:'우박'};
+const WX_DESC={0:'Clear',1:'Mostly clear',2:'Partly cloudy',3:'Cloudy',45:'Fog',48:'Dense fog',51:'Light drizzle',53:'Drizzle',55:'Drizzle',61:'Rain',63:'Rain',65:'Heavy rain',71:'Snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Showers',82:'Heavy showers',95:'Thunderstorm',96:'Hail',99:'Hail'};
 
 document.getElementById('wx-badge-btn').onclick=e=>{
   e.stopPropagation();
@@ -615,14 +633,14 @@ document.getElementById('wx-badge-btn').onclick=e=>{
 
 function loadWeather(){
   const wrap=document.getElementById('wx-wrap');
-  if(!navigator.geolocation){wrap.innerHTML='<div class="wx-err">위치 서비스 미지원</div>';return;}
+  if(!navigator.geolocation){wrap.innerHTML='<div class="wx-err">Location services not supported</div>';return;}
   try{
     navigator.geolocation.getCurrentPosition(
       pos=>fetchWeather(pos.coords.latitude,pos.coords.longitude,wrap),
-      ()=>{wrap.innerHTML='<div class="wx-err">📍 위치 권한을 허용해 주세요</div>';},
+      ()=>{wrap.innerHTML='<div class="wx-err">📍 Please allow location access</div>';},
       {timeout:8000}
     );
-  }catch(e){wrap.innerHTML='<div class="wx-err">위치 서비스를 사용할 수 없어요</div>';}
+  }catch(e){wrap.innerHTML='<div class="wx-err">Location services are unavailable</div>';}
 }
 async function fetchWeather(lat,lon,wrap){
   const now=Date.now();
@@ -631,19 +649,19 @@ async function fetchWeather(lat,lon,wrap){
     const geo=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=ko`);
     const gj=await geo.json();
     const a=gj.address||{};
-    wxLocName=a.city||a.town||a.county||a.state||'현재 위치';
+    wxLocName=a.city||a.town||a.county||a.state||'Current location';
     const url=`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,weathercode,apparent_temperature&current_weather=true&wind_speed_unit=ms&timezone=auto&forecast_days=1`;
     const res=await fetch(url);
     const data=await res.json();
     weatherCache={lat,lon,fetched:now,data};
     renderWeatherPanel(data,wrap);
-    // 뱃지 업데이트
+    // update badge
     const cw=data.current_weather;
     document.getElementById('wx-badge-icon').textContent=WX_ICONS[cw.weathercode]||'🌡';
     document.getElementById('wx-badge-temp').textContent=Math.round(cw.temperature)+'°';
     document.getElementById('wx-badge-desc').textContent=`${wxLocName} · ${WX_DESC[cw.weathercode]||''}`;
   }catch(e){
-    if(wrap)wrap.innerHTML=`<div class="wx-err">날씨를 불러오지 못했어요</div>`;
+    if(wrap)wrap.innerHTML=`<div class="wx-err">Couldn't load the weather</div>`;
   }
 }
 function renderWeatherPanel(data,wrap){
@@ -659,30 +677,30 @@ function renderWeatherPanel(data,wrap){
   const hourCards=todayHours.map(h=>{
     const hr=parseInt(h.t.slice(11,13));
     const isNow=hr===nowH;
-    const lbl=hr===0?'자정':hr===12?'정오':`${hr}시`;
+    const lbl=hr===0?'Midnight':hr===12?'Noon':`${hr}:00`;
     return`<div class="wx-hc${isNow?' now':''}"><div class="wx-hc-t">${lbl}</div><div class="wx-hc-i">${WX_ICONS[h.code]||'🌡'}</div><div class="wx-hc-temp">${h.temp}°</div>${h.rain>0?`<div class="wx-hc-rain">💧${h.rain}%</div>`:''}</div>`;
   }).join('');
   wrap.innerHTML=`
     <div class="wx-loc">
       <div><div class="wx-loc-name">📍 ${wxLocName}</div></div>
-      <button class="wx-loc-btn" id="wx-refresh">새로고침</button>
+      <button class="wx-loc-btn" id="wx-refresh">Refresh</button>
     </div>
     <div class="wx-now">
       <div class="wx-now-icon">${icon}</div>
       <div><div class="wx-now-temp">${temp}°C</div><div class="wx-now-desc">${desc}</div></div>
     </div>
     <div class="wx-detail">
-      <div class="wx-d"><div class="wx-d-lbl">체감</div><div class="wx-d-val">${nowH2?nowH2.feels+'°':'-'}</div></div>
-      <div class="wx-d"><div class="wx-d-lbl">풍속</div><div class="wx-d-val">${cw.windspeed.toFixed(1)}m/s</div></div>
-      <div class="wx-d"><div class="wx-d-lbl">강수</div><div class="wx-d-val">${nowH2?nowH2.rain+'%':'-'}</div></div>
-      <div class="wx-d"><div class="wx-d-lbl">상태</div><div class="wx-d-val">${icon}</div></div>
+      <div class="wx-d"><div class="wx-d-lbl">Feels like</div><div class="wx-d-val">${nowH2?nowH2.feels+'°':'-'}</div></div>
+      <div class="wx-d"><div class="wx-d-lbl">Wind</div><div class="wx-d-val">${cw.windspeed.toFixed(1)}m/s</div></div>
+      <div class="wx-d"><div class="wx-d-lbl">Rain</div><div class="wx-d-val">${nowH2?nowH2.rain+'%':'-'}</div></div>
+      <div class="wx-d"><div class="wx-d-lbl">Condition</div><div class="wx-d-val">${icon}</div></div>
     </div>
-    <div class="wx-ht">시간별</div>
+    <div class="wx-ht">Hourly</div>
     <div class="wx-hourly">${hourCards}</div>`;
-  document.getElementById('wx-refresh').onclick=()=>{weatherCache={};wrap.innerHTML='<div class="wx-loading">📡 불러오는 중…</div>';loadWeather();};
+  document.getElementById('wx-refresh').onclick=()=>{weatherCache={};wrap.innerHTML='<div class="wx-loading">📡 Loading…</div>';loadWeather();};
 }
 
-/* ── 이미지 압축 ── */
+/* ── Image compression ── */
 function compressImage(dataURL,maxW,maxH,q){
   return new Promise(res=>{
     const img=new Image();
@@ -725,26 +743,26 @@ function renderL(){
       <div class="cal-nav">
         <button class="cnb" id="pm">&#8249;</button>
         <button class="cnb" id="nm">&#8250;</button>
-        <span class="cal-title" style="margin-left:6px">${cy}년 ${cm+1}월</span>
+        <span class="cal-title" style="margin-left:6px">${cy}.${cm+1}</span>
       </div>
       <div class="ltog">
-        <button class="ltb${!lunarOn?' on':''}" id="sol">양력</button>
-        <button class="ltb${lunarOn?' on':''}" id="lun">음력</button>
+        <button class="ltb${!lunarOn?' on':''}" id="sol">Solar</button>
+        <button class="ltb${lunarOn?' on':''}" id="lun">Lunar</button>
       </div>
     </div>
-    <div class="dow"><span style="color:var(--acc)">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span style="color:#5a6fa8">토</span></div>
+    <div class="dow"><span style="color:var(--acc)">Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span style="color:#5a6fa8">Sat</span></div>
     <div class="dg" id="dg">${cells}</div>
     <div style="padding:8px 10px;border-top:1.5px solid var(--ink5)">
-      <div style="font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">오늘 기분</div>
+      <div style="font-size:10px;font-weight:700;color:var(--ink3);letter-spacing:.07em;text-transform:uppercase;margin-bottom:6px">Today's mood</div>
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px">${moodHTML}</div>
     </div>
     <div class="stats-row">
-      <div class="st"><div class="sn">${total}</div><div class="sl">전체</div></div>
-      <div class="st"><div class="sn">${done}</div><div class="sl">완료</div></div>
-      <div class="st"><div class="sn">${rate}%</div><div class="sl">달성</div></div>
+      <div class="st"><div class="sn">${total}</div><div class="sl">Total</div></div>
+      <div class="st"><div class="sn">${done}</div><div class="sl">Done</div></div>
+      <div class="st"><div class="sn">${rate}%</div><div class="sl">Rate</div></div>
     </div>
     <div class="prog-w">
-      <div class="pb-lbl">달성률</div>
+      <div class="pb-lbl">Completion</div>
       <div class="pb-bg"><div class="pb-fill" style="width:${rate}%"></div></div>
     </div>`;
   document.getElementById('pm').onclick=()=>{if(cm===0){cm=11;cy--;}else cm--;renderL();};
@@ -769,7 +787,7 @@ function dcell(d,fade){
   const moodIdx=moods[ds];
   const cls=['dc',fade?'fade':'',isT?'tod':'',isSel&&!isT?'sel':'',sun?'sun':''].filter(Boolean).join(' ');
   const lun=lunarOn?`<div class="lun">${lunar(d.getFullYear(),d.getMonth()+1,d.getDate())}</div>`:'';
-  /* 기분은 날짜칸 배경색으로, 할 일은 점(dot)으로 구분 표시. 오늘/선택된 칸은 기존 강조색 우선 */
+  /* Mood shown as the day cell's background color, todos shown as dots. Today/selected cell keeps its existing highlight color */
   const bgStyle=(moodIdx!==undefined && !isT && !isSel)?` style="background:${MOODS[moodIdx].p3}"`:'';
   return`<div class="${cls}" data-d="${ds}"${bgStyle}><div class="dn">${d.getDate()}</div>${lun}${dots?`<div class="dotrow">${dots}</div>`:''}</div>`;
 }
@@ -777,26 +795,26 @@ function dcell(d,fade){
 function renderR(){
   const rp=document.getElementById('rpanel');
   if(modal){rp.innerHTML=buildModal();bindModal();return;}
-  const ds=df(selD),wd=['일','월','화','수','목','금','토'][selD.getDay()];
+  const ds=df(selD),wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][selD.getDay()];
   const lstr=lunar(selD.getFullYear(),selD.getMonth()+1,selD.getDate());
   const header=`
     <div class="rp-top">
       <div>
-        <div class="dh">${selD.getMonth()+1}월 ${selD.getDate()}일 (${wd})</div>
-        <div class="ds">음력 ${lstr}</div>
+        <div class="dh">${selD.getMonth()+1}/${selD.getDate()} (${wd})</div>
+        <div class="ds">Lunar ${lstr}</div>
       </div>
       <div class="top-r">
         <div class="frow" id="frow-btns"${rtab!=='todo'?' style="display:none"':''}>
-          <button class="fb${fmode==='all'?' on':''}" data-f="all">전체</button>
-          <button class="fb${fmode==='active'?' on':''}" data-f="active">진행</button>
-          <button class="fb${fmode==='done'?' on':''}" data-f="done">완료</button>
+          <button class="fb${fmode==='all'?' on':''}" data-f="all">All</button>
+          <button class="fb${fmode==='active'?' on':''}" data-f="active">Active</button>
+          <button class="fb${fmode==='done'?' on':''}" data-f="done">Done</button>
         </div>
-        <button class="add-btn" id="btn-add"${rtab!=='todo'?' style="display:none"':''}>+ 추가</button>
+        <button class="add-btn" id="btn-add"${rtab!=='todo'?' style="display:none"':''}>+ Add</button>
       </div>
     </div>
     <div class="rtab-bar">
-      <button class="rtab${rtab==='diary'?' on':''}" data-tab="diary">📓 일기</button>
-      <button class="rtab${rtab==='todo'?' on':''}" data-tab="todo">📋 할 일</button>
+      <button class="rtab${rtab==='diary'?' on':''}" data-tab="diary">📓 Diary</button>
+      <button class="rtab${rtab==='todo'?' on':''}" data-tab="todo">📋 To-do</button>
     </div>`;
   let body='';
   if(rtab==='todo'){
@@ -809,10 +827,10 @@ function renderR(){
     const dn=items.filter(t=>t.done);
     let lhtml='';
     const grp=(lbl,arr)=>{if(!arr.length)return;lhtml+=`<div class="slbl">${lbl}</div>`;arr.forEach(t=>{lhtml+=tcard(t);});};
-    if(fmode!=='done'){grp('지연됨',late);grp('예정',up);}
-    if(fmode!=='active')grp('완료',dn);
+    if(fmode!=='done'){grp('Overdue',late);grp('Upcoming',up);}
+    if(fmode!=='active')grp('Done',dn);
     const allDayItems=todos.filter(t=>ds>=t.date&&ds<=(t.dateEnd||t.date));
-    if(!allDayItems.length) lhtml=`<div class="empty"><p>이 날 할 일이 없어요 🌶️</p></div>`;
+    if(!allDayItems.length) lhtml=`<div class="empty"><p>No to-dos for this day 🌶️</p></div>`;
     body=`<div class="list">${lhtml}</div>`;
   } else {
     body=buildDiaryTab(ds);
@@ -844,23 +862,23 @@ function buildDiaryTab(ds){
         <button class="dp-del" data-idx="${i}">✕</button>
         <button class="dp-dl" data-idx="${i}">↓</button>
       </div>
-      <textarea class="dp-cap" id="dp-cap-${i}" data-idx="${i}" placeholder="이 사진에 대한 글을 남겨보세요…">${photoCap(p)}</textarea>
+      <textarea class="dp-cap" id="dp-cap-${i}" data-idx="${i}" placeholder="Write something about this photo…">${photoCap(p)}</textarea>
     </div>`).join('');
-  const addBtn=n<9?`<label class="dp-add" for="photo-input" id="dp-add-btn"><div class="dp-add-icon">📷</div><div class="dp-add-lbl">사진 추가</div></label>`:'';
+  const addBtn=n<9?`<label class="dp-add" for="photo-input" id="dp-add-btn"><div class="dp-add-icon">📷</div><div class="dp-add-lbl">Add photo</div></label>`:'';
   return`
     <div class="diary-wrap">
       <div class="photo-section">
-        <div class="section-title">📷 사진</div>
+        <div class="section-title">📷 Photos</div>
         <div class="photo-grid ${gridClass}">${photoItems}</div>
         ${addBtn}
         <input type="file" id="photo-input" accept="image/*" multiple style="display:none">
       </div>
       <div class="diary-section">
-        <div class="section-title">✏️ 일기</div>
-        <textarea class="diary-textarea" id="diary-text" placeholder="오늘 하루는 어땠나요?">${diaries[ds]||''}</textarea>
+        <div class="section-title">✏️ Diary</div>
+        <textarea class="diary-textarea" id="diary-text" placeholder="How was your day?">${diaries[ds]||''}</textarea>
         <div class="diary-footer">
-          <span class="diary-toast" id="diary-toast">저장됐어요 ✓</span>
-          <button class="diary-save-btn" id="diary-save">저장</button>
+          <span class="diary-toast" id="diary-toast">Saved ✓</span>
+          <button class="diary-save-btn" id="diary-save">Save</button>
         </div>
       </div>
     </div>`;
@@ -931,7 +949,7 @@ function autoGrow(ta){
 /* ── TODO CARD ── */
 function tcard(t){
   const cat=CATS[t.cat];
-  const pl={high:'높음',mid:'중간',low:'낮음'};
+  const pl={high:'High',mid:'Medium',low:'Low'};
   const isMulti=t.dateEnd&&t.dateEnd!==t.date;
   const periodLbl=isMulti?`${t.date.slice(5).replace('-','.')}~${t.dateEnd.slice(5).replace('-','.')}`:'';
   return`<div class="tc${t.done?' donec':''}">
@@ -941,9 +959,9 @@ function tcard(t){
       <div class="tc-meta">
         <span class="bc" style="background:${cat.bg};color:${cat.c}">${cat.n}</span>
         <span class="badge b${t.pri[0]}">${pl[t.pri]}</span>
-        ${t.rep!=='없음'?`<span class="badge br">${t.rep}</span>`:''}
+        ${t.rep!=='None'?`<span class="badge br">${t.rep}</span>`:''}
         ${t.time?`<span class="tc-time">⏰ ${t.time}</span>`:''}
-        ${t.alarm?`<span class="tc-alarm" title="30분 전 알림">🔔</span>`:''}
+        ${t.alarm?`<span class="tc-alarm" title="Alarm 30 min before">🔔</span>`:''}
         ${isMulti?`<span class="tc-period">📅 ${periodLbl}</span>`:''}
       </div>
     </div>
@@ -962,37 +980,37 @@ function buildModal(){
   const t=editId?todos.find(x=>x.id===editId):null;
   const v=(k,d)=>t?t[k]:d;
   const cph=CATS.map((c,i)=>`<button class="cp${v('cat',0)===i?' on':''}" data-ci="${i}" type="button">${catSVG(c.c,c.bg,CAT_ACTS[i])}<span class="cp-lbl">${c.n}</span></button>`).join('');
-  const rph=REPS.map(r=>`<button class="rs${v('rep','없음')===r?' on':''}" data-rv="${r}" type="button">${r}</button>`).join('');
+  const rph=REPS.map(r=>`<button class="rs${v('rep','None')===r?' on':''}" data-rv="${r}" type="button">${r}</button>`).join('');
   return`<div class="ov"><div class="modal">
-    <div class="mhd">${editId?'할 일 수정':'새 할 일 추가'}</div>
-    <div class="field"><label>제목</label><input id="ft" value="${v('title','')}" placeholder="할 일을 입력하세요"/></div>
-    <div class="field"><label>카테고리</label><div class="cat-pick" id="cpick">${cph}</div></div>
-    <div class="field"><label>기간</label>
+    <div class="mhd">${editId?'Edit to-do':'New to-do'}</div>
+    <div class="field"><label>Title</label><input id="ft" value="${v('title','')}" placeholder="Enter a to-do"/></div>
+    <div class="field"><label>Category</label><div class="cat-pick" id="cpick">${cph}</div></div>
+    <div class="field"><label>Date range</label>
       <div class="twocol">
         <input type="date" id="fd" value="${v('date',df(selD))}"/>
         <input type="date" id="fde" value="${v('dateEnd',v('date',df(selD)))}"/>
       </div>
-      <div class="period-hint">시작일 → 종료일 (하루짜리 할 일이면 같게 두세요)</div>
+      <div class="period-hint">Start date → end date (use the same date for a single-day task)</div>
     </div>
     <div class="twocol">
-      <div class="field"><label>시간</label><input type="time" id="ftm" value="${v('time','')}"/></div>
-      <div class="field"><label>알림</label>
-        <label class="chkrow"><input type="checkbox" id="falarm"${v('alarm',false)?' checked':''}/> 30분 전 알림</label>
+      <div class="field"><label>Time</label><input type="time" id="ftm" value="${v('time','')}"/></div>
+      <div class="field"><label>Alarm</label>
+        <label class="chkrow"><input type="checkbox" id="falarm"${v('alarm',false)?' checked':''}/> Notify 30 min before</label>
         <div class="alarm-status" id="alarm-status"></div>
-        <button type="button" class="alarm-test-btn" id="alarm-test-btn">🔔 알림 테스트</button>
+        <button type="button" class="alarm-test-btn" id="alarm-test-btn">🔔 Test notification</button>
       </div>
     </div>
-    <div class="field"><label>우선순위</label>
-      <select id="fp"><option value="high"${v('pri','mid')==='high'?' selected':''}>높음</option><option value="mid"${v('pri','mid')==='mid'?' selected':''}>중간</option><option value="low"${v('pri','mid')==='low'?' selected':''}>낮음</option></select>
+    <div class="field"><label>Priority</label>
+      <select id="fp"><option value="high"${v('pri','mid')==='high'?' selected':''}>High</option><option value="mid"${v('pri','mid')==='mid'?' selected':''}>Medium</option><option value="low"${v('pri','mid')==='low'?' selected':''}>Low</option></select>
     </div>
-    <div class="field"><label>반복</label><div class="repset" id="rset">${rph}</div></div>
-    <div class="field"><label>메모</label><textarea id="fn">${v('note','')}</textarea></div>
-    <div class="mftr"><button class="btn-c" id="mc">취소</button><button class="btn-s" id="ms">${editId?'저장':'추가'}</button></div>
+    <div class="field"><label>Repeat</label><div class="repset" id="rset">${rph}</div></div>
+    <div class="field"><label>Notes</label><textarea id="fn">${v('note','')}</textarea></div>
+    <div class="mftr"><button class="btn-c" id="mc">Cancel</button><button class="btn-s" id="ms">${editId?'Save':'Add'}</button></div>
   </div></div>`;
 }
 function bindModal(){
   let sc=editId?todos.find(x=>x.id===editId).cat:0;
-  let sr=editId?todos.find(x=>x.id===editId).rep:'없음';
+  let sr=editId?todos.find(x=>x.id===editId).rep:'None';
   document.querySelectorAll('.cp').forEach(b=>b.onclick=()=>{sc=+b.dataset.ci;document.querySelectorAll('.cp').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
   document.querySelectorAll('.rs').forEach(b=>b.onclick=()=>{sr=b.dataset.rv;document.querySelectorAll('.rs').forEach(x=>x.classList.remove('on'));b.classList.add('on');});
   const alarmChk=document.getElementById('falarm');
@@ -1001,19 +1019,19 @@ function bindModal(){
     if(!statusEl||!alarmChk)return;
     if(!alarmChk.checked){statusEl.textContent='';statusEl.className='alarm-status';return;}
     if(location.protocol==='file:'){
-      statusEl.textContent='⚠️ 파일을 직접 열면 브라우저가 알림을 차단할 수 있어요. 인터넷 주소(https)로 접속하면 정상 동작해요.';
+      statusEl.textContent='⚠️ Opening the file directly may cause the browser to block notifications. It works properly when accessed via a web address (https).';
       statusEl.className='alarm-status warn';
     }else if(!('Notification' in window)){
-      statusEl.textContent='⚠️ 이 브라우저는 알림 기능을 지원하지 않아요.';
+      statusEl.textContent='⚠️ This browser doesn\'t support notifications.';
       statusEl.className='alarm-status warn';
     }else if(Notification.permission==='granted'){
-      statusEl.textContent='✓ 알림이 허용되어 있어요.';
+      statusEl.textContent='✓ Notifications are allowed.';
       statusEl.className='alarm-status ok';
     }else if(Notification.permission==='denied'){
-      statusEl.textContent='⚠️ 알림이 차단되어 있어요. 브라우저 설정에서 이 페이지의 알림을 허용해주세요.';
+      statusEl.textContent='⚠️ Notifications are blocked. Please allow notifications for this page in your browser settings.';
       statusEl.className='alarm-status warn';
     }else{
-      statusEl.textContent='앱이 켜져 있는 동안에만 알림이 와요. 권한 요청 중…';
+      statusEl.textContent='Notifications only arrive while the app is open. Requesting permission…';
       statusEl.className='alarm-status info';
     }
   }
@@ -1026,7 +1044,7 @@ function bindModal(){
   }
   const testBtn=document.getElementById('alarm-test-btn');
   if(testBtn) testBtn.onclick=()=>{
-    fireNotif('⏰ 테스트 알림',`알림이 정상적으로 동작하고 있어요!`);
+    fireNotif('⏰ Test notification',`Notifications are working correctly!`);
   };
   document.getElementById('mc').onclick=()=>{modal=false;renderR();};
   document.getElementById('ms').onclick=()=>{
@@ -1034,7 +1052,7 @@ function bindModal(){
     const title=titleInput.value.trim();
     if(!title){
       titleInput.style.borderColor='#e85d3a';
-      titleInput.placeholder='제목을 입력해주세요!';
+      titleInput.placeholder='Please enter a title!';
       titleInput.focus();
       return;
     }
@@ -1046,8 +1064,8 @@ function bindModal(){
     let todoObj;
     if(editId){todoObj=todos.find(x=>x.id===editId);Object.assign(todoObj,d);}
     else{todoObj={id:nextId++,...d};todos.push(todoObj);}
-    // 시간/알림을 다시 설정했을 수 있으니, 오늘 날짜에 대한 '이미 알렸음' 기록을 지워서
-    // 같은 날 다시 테스트하거나 시간을 바꿔도 알림이 정상적으로 다시 동작하게 함
+    // The time/alarm may have just been changed, so clear today's 'already notified' record
+    // so the alarm still works correctly even when re-testing or changing the time on the same day
     const todayKey=todoObj.id+'_'+df(new Date());
     if(notifiedKeys[todayKey]){delete notifiedKeys[todayKey];safeStorage.setItem('nyanodo_notified',JSON.stringify(notifiedKeys));}
     scheduleAlarm(todoObj);
